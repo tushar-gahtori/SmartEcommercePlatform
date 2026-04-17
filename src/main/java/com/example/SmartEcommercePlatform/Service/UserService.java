@@ -1,12 +1,9 @@
 package com.example.SmartEcommercePlatform.Service;
 
-import com.example.SmartEcommercePlatform.Dto.UserRequestDTO;
-import com.example.SmartEcommercePlatform.Dto.UserResponseDTO;
-import com.example.SmartEcommercePlatform.Dto.UserUpdateDTO;
+import com.example.SmartEcommercePlatform.Dto.*;
 import com.example.SmartEcommercePlatform.Entity.User;
 import com.example.SmartEcommercePlatform.Exception.ResourceNotFoundException;
 import com.example.SmartEcommercePlatform.Repository.UserRepository;
-import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -15,18 +12,19 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserService {
+
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
 
-    public UserService(UserRepository userRepository,ModelMapper modelMapper) {
+    public UserService(UserRepository userRepository, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
     }
 
-    public UserRequestDTO createUser(UserRequestDTO dto){
-        User user = modelMapper.map(dto,User.class);
+    public UserResponseDTO createUser(UserRequestDTO dto){
+        User user = modelMapper.map(dto, User.class);
         User savedUser = userRepository.save(user);
-        return  modelMapper.map(savedUser,UserRequestDTO.class);
+        return modelMapper.map(savedUser, UserResponseDTO.class);
     }
 
     public List<UserResponseDTO> getAllUsers() {
@@ -39,15 +37,19 @@ public class UserService {
     public UserResponseDTO getUserById(Long id){
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+
         return modelMapper.map(user, UserResponseDTO.class);
     }
 
-    public UserResponseDTO updateUser(Long id, @Valid UserUpdateDTO dto){
-        User userFound=userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
-        userFound.setName(dto.getName());
-        userFound.setEmail(dto.getEmail());
-        userRepository.save(userFound);
-        return modelMapper.map(userFound,UserResponseDTO.class);
-    }
+    public UserResponseDTO updateUser(Long id, UserUpdateDTO dto){
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
 
+        user.setName(dto.getName());
+        user.setEmail(dto.getEmail());
+
+        User updatedUser = userRepository.save(user);
+
+        return modelMapper.map(updatedUser, UserResponseDTO.class);
+    }
 }

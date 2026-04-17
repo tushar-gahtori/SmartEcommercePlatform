@@ -4,6 +4,7 @@ import com.example.SmartEcommercePlatform.Dto.UserRequestDTO;
 import com.example.SmartEcommercePlatform.Dto.UserResponseDTO;
 import com.example.SmartEcommercePlatform.Dto.UserUpdateDTO;
 import com.example.SmartEcommercePlatform.Entity.User;
+import com.example.SmartEcommercePlatform.Response.ApiResponse;
 import com.example.SmartEcommercePlatform.Service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,24 +19,39 @@ public class UserController {
 
     private final UserService userService;
 
-    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @PostMapping
-    public UserRequestDTO createUser(@Valid @RequestBody UserRequestDTO dto) {
-        return userService.createUser(dto);
+    public ResponseEntity<ApiResponse<UserResponseDTO>> createUser(@Valid @RequestBody UserRequestDTO dto) {
+
+        UserResponseDTO user = userService.createUser(dto);
+
+        return ResponseEntity.ok(
+                new ApiResponse<>("User created successfully", user, 200)
+        );
     }
 
     @GetMapping
-    public List<UserResponseDTO> getUsers() {
-        return userService.getAllUsers();
+    public ResponseEntity<ApiResponse<List<UserResponseDTO>>> getUsers() {
+
+        List<UserResponseDTO> users = userService.getAllUsers();
+
+        return ResponseEntity.ok(
+                new ApiResponse<>("Users fetched successfully", users, 200)
+        );
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserResponseDTO> updateUser(@PathVariable Long id, @Valid @RequestBody UserUpdateDTO dto) {
+    public ResponseEntity<ApiResponse<UserResponseDTO>> updateUser(
+            @PathVariable Long id,
+            @Valid @RequestBody UserUpdateDTO dto) {
+
         UserResponseDTO updatedUser = userService.updateUser(id, dto);
-        return ResponseEntity.ok().body(updatedUser);
+
+        return ResponseEntity.ok(
+                new ApiResponse<>("User updated successfully", updatedUser, 200)
+        );
     }
 }
