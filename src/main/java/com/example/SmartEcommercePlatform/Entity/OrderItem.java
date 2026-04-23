@@ -19,10 +19,8 @@ public class OrderItem {
     // Many items → one order
     @ManyToOne
     @JoinColumn(name = "order_id")
-    @JsonBackReference
     private Order order;
 
-    // Many items → one product
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;

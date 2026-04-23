@@ -1,8 +1,12 @@
 package com.example.SmartEcommercePlatform.Controller;
 
+import com.example.SmartEcommercePlatform.Dto.OrderRequestDTO;
+import com.example.SmartEcommercePlatform.Dto.OrderResponseDTO;
 import com.example.SmartEcommercePlatform.Entity.Order;
+import com.example.SmartEcommercePlatform.Response.ApiResponse;
 import com.example.SmartEcommercePlatform.Service.OrderService;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,12 +22,27 @@ public class OrderController {
     }
 
     @PostMapping
-    public Order createOrder(@RequestBody Order order) {
-        return orderService.createOrder(order);
+    public ResponseEntity<ApiResponse<OrderResponseDTO>> createOrder(
+            @RequestBody OrderRequestDTO request) {
+
+        OrderResponseDTO response = orderService.createOrder(request);
+
+        return ResponseEntity.ok(
+                new ApiResponse<OrderResponseDTO>(
+                        "Order created successfully",
+                        response,
+                        200
+                )
+        );
     }
 
     @GetMapping
-    public List<Order> getOrders() {
-        return orderService.getAllOrders();
+    public ResponseEntity<ApiResponse<List<OrderResponseDTO>>> getAllOrders() {
+
+        List<OrderResponseDTO> orders = orderService.getAllOrders();
+
+        return ResponseEntity.ok(
+                new ApiResponse<List<OrderResponseDTO>>("Orders fetched successfully", orders,200)
+        );
     }
 }
