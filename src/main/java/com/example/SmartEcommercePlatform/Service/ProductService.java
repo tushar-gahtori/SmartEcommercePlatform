@@ -8,24 +8,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ProductService {
+public interface ProductService {
 
-    private final ProductRepository productRepository;
+    Product saveProduct(Product product);
 
-    public ProductService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
+    List<Product> getAllProducts();
 
-    public Product createProduct(Product product) {
-        return productRepository.save(product);
-    }
+    Product getProductById(Long id);
 
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
-    }
+    Product updateProduct(Long id, Product product);
 
-    public Product getProductById(Long id) {
-        return productRepository.findById(id)
-                .orElseThrow(()->new ResourceNotFoundException("Product Not Found"));
-    }
+    void deleteProduct(Long id);
 }

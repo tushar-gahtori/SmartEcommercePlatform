@@ -1,11 +1,10 @@
 package com.example.SmartEcommercePlatform.Entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,12 +19,13 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //Many orders can belong to one user
+    // Many orders → one user
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
 
-    //One order can have many order items
-    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
-    private List<OrderItem> items;
+    // One order → many items
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<OrderItem> items = new ArrayList<>();
 }
