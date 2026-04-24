@@ -4,26 +4,37 @@ import com.example.SmartEcommercePlatform.Dto.*;
 import com.example.SmartEcommercePlatform.Entity.User;
 import com.example.SmartEcommercePlatform.Exception.ResourceNotFoundException;
 import com.example.SmartEcommercePlatform.Repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+
 public class UserService {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, ModelMapper modelMapper) {
+    public UserService(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public UserResponseDTO createUser(UserRequestDTO dto){
+        //Map the DTO to the Entity (this copies the plain-text password over)
         User user = modelMapper.map(dto, User.class);
+        //INTERCEPT AND HASH THE PASSWORD
+        String hashedPassword = passwordEncoder.encode(dto.getPassword());
+        user.setPassword(hashedPassword);
+        //Save to database
         User savedUser = userRepository.save(user);
+        //Map back to Response DTO
         return modelMapper.map(savedUser, UserResponseDTO.class);
     }
 
