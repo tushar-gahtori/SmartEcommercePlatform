@@ -6,6 +6,7 @@ import com.example.SmartEcommercePlatform.Entity.Order;
 import com.example.SmartEcommercePlatform.Response.ApiResponse;
 import com.example.SmartEcommercePlatform.Service.OrderService;
 
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,18 +23,9 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<OrderResponseDTO>> createOrder(
-            @RequestBody OrderRequestDTO request) {
-
-        OrderResponseDTO response = orderService.createOrder(request);
-
-        return ResponseEntity.ok(
-                new ApiResponse<OrderResponseDTO>(
-                        "Order created successfully",
-                        response,
-                        200
-                )
-        );
+    public ResponseEntity<ApiResponse<OrderResponseDTO>> createOrder(@Valid @RequestBody OrderRequestDTO dto) {
+        OrderResponseDTO response = orderService.createOrder(dto);
+        return ResponseEntity.ok(new ApiResponse<>("Order created successfully", response, 201));
     }
 
     @GetMapping

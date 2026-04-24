@@ -54,4 +54,24 @@ public class UserController {
                 new ApiResponse<>("User updated successfully", updatedUser, 200)
         );
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse<UserResponseDTO>> getUserById(@PathVariable Long id) {
+
+        UserResponseDTO user = userService.getUserById(id);
+
+        return ResponseEntity.ok(
+                new ApiResponse<>("User fetched successfully", user, 200)
+        );
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<String>> deleteUser(@PathVariable Long id) {
+
+        userService.deleteUser(id);
+
+        return ResponseEntity.ok(
+                new ApiResponse<>("User deleted successfully", null, 200)
+        );
+    }
 }
