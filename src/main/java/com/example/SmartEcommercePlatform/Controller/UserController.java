@@ -6,6 +6,7 @@ import com.example.SmartEcommercePlatform.Dto.UserUpdateDTO;
 import com.example.SmartEcommercePlatform.Entity.User;
 import com.example.SmartEcommercePlatform.Response.ApiResponse;
 import com.example.SmartEcommercePlatform.Service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,10 @@ public class UserController {
         this.userService = userService;
     }
 
+    @Operation(
+            summary = "Register a new user",
+            description = "Creates a new user account. All new accounts default to the 'USER' role. This endpoint is public."
+    )
     @PostMapping
     public ResponseEntity<ApiResponse<UserResponseDTO>> createUser(@Valid @RequestBody UserRequestDTO dto) {
 
@@ -33,6 +38,7 @@ public class UserController {
         );
     }
 
+    @Operation(summary = "Get user details", description = "Requires a valid JWT token.")
     @GetMapping
     public ResponseEntity<ApiResponse<List<UserResponseDTO>>> getUsers() {
 
@@ -43,6 +49,8 @@ public class UserController {
         );
     }
 
+
+    @Operation(summary = "Update user details", description = "Requires a valid JWT token.")
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<UserResponseDTO>> updateUser(
             @PathVariable Long id,
@@ -55,6 +63,7 @@ public class UserController {
         );
     }
 
+    @Operation(summary = "Get user details by ID", description = "Requires a valid JWT token.")
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<UserResponseDTO>> getUserById(@PathVariable Long id) {
 
@@ -65,6 +74,7 @@ public class UserController {
         );
     }
 
+    @Operation(summary = "Delete a user account", description = "Requires ADMIN role.")
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<String>> deleteUser(@PathVariable Long id) {
 

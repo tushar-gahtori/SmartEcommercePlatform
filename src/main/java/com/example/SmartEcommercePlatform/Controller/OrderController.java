@@ -6,6 +6,7 @@ import com.example.SmartEcommercePlatform.Entity.Order;
 import com.example.SmartEcommercePlatform.Response.ApiResponse;
 import com.example.SmartEcommercePlatform.Service.OrderService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,10 @@ public class OrderController {
         this.orderService = orderService;
     }
 
+    @Operation(
+            summary = "Place a new order",
+            description = "Creates an order for the currently authenticated user. Deducts stock quantities from products."
+    )
     @PostMapping
     public ResponseEntity<ApiResponse<OrderResponseDTO>> createOrder(
             @Valid @RequestBody OrderRequestDTO dto, Principal principal) {
@@ -30,6 +35,10 @@ public class OrderController {
         return ResponseEntity.ok(new ApiResponse<>("Order created successfully", response, 201));
     }
 
+    @Operation(
+            summary = "Get All orders",
+            description = "Fetches all past orders."
+    )
     @GetMapping
     public ResponseEntity<ApiResponse<List<OrderResponseDTO>>> getAllOrders(Principal principal) {
 
@@ -40,6 +49,10 @@ public class OrderController {
         );
     }
 
+    @Operation(
+            summary = "Get order history for current user",
+            description = "Fetches all past orders belonging exclusively to the authenticated user. Uses the JWT to guarantee data isolation."
+    )
     @GetMapping("/my-orders")
     public ResponseEntity<ApiResponse<List<OrderResponseDTO>>> getMyOrders(Principal principal) {
 

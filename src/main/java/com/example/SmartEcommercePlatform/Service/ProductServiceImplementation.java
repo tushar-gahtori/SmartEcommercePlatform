@@ -1,8 +1,10 @@
 package com.example.SmartEcommercePlatform.Service;
 
+import com.example.SmartEcommercePlatform.Dto.ProductRequestDTO;
 import com.example.SmartEcommercePlatform.Dto.ProductResponseDTO;
 import com.example.SmartEcommercePlatform.Entity.Product;
 import com.example.SmartEcommercePlatform.Repository.ProductRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,14 +18,16 @@ public class ProductServiceImplementation implements ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-    @Override
-    public Product saveProduct(Product product) {
-        return productRepository.save(product);
-    }
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public ProductResponseDTO createProduct(ProductRequestDTO dto) {
+
+        Product product = modelMapper.map(dto, Product.class);
+        Product savedProduct = productRepository.save(product);
+
+        return modelMapper.map(savedProduct, ProductResponseDTO.class);
     }
 
     @Override

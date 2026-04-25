@@ -1,5 +1,6 @@
 package com.example.SmartEcommercePlatform.Service;
 
+import com.example.SmartEcommercePlatform.Dto.ProductRequestDTO;
 import com.example.SmartEcommercePlatform.Dto.ProductResponseDTO;
 import com.example.SmartEcommercePlatform.Entity.Product;
 import com.example.SmartEcommercePlatform.Exception.ResourceNotFoundException;
@@ -13,15 +14,13 @@ import java.util.List;
 @Service
 public interface ProductService {
 
-    Product saveProduct(Product product);
+    ProductResponseDTO createProduct(ProductRequestDTO dto);
 
-    List<Product> getAllProducts();
+    Page<ProductResponseDTO> getAllProducts(Pageable pageable);
 
     Product getProductById(Long id);
 
-    Product updateProduct(Long id, Product product);
+    Product updateProduct(Long id, Product updatedProduct);
 
     void deleteProduct(Long id);
-
-    Page<ProductResponseDTO> getAllProducts(Pageable pageable);
 }

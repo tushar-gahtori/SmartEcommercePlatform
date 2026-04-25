@@ -1,6 +1,7 @@
 package com.example.SmartEcommercePlatform.Service;
 
 import com.example.SmartEcommercePlatform.Dto.*;
+import com.example.SmartEcommercePlatform.Entity.Role;
 import com.example.SmartEcommercePlatform.Entity.User;
 import com.example.SmartEcommercePlatform.Exception.ResourceNotFoundException;
 import com.example.SmartEcommercePlatform.Repository.UserRepository;
@@ -30,8 +31,8 @@ public class UserService {
         //Map the DTO to the Entity (this copies the plain-text password over)
         User user = modelMapper.map(dto, User.class);
         //INTERCEPT AND HASH THE PASSWORD
-        String hashedPassword = passwordEncoder.encode(dto.getPassword());
-        user.setPassword(hashedPassword);
+        user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        user.setRole(Role.USER);
         //Save to database
         User savedUser = userRepository.save(user);
         //Map back to Response DTO
