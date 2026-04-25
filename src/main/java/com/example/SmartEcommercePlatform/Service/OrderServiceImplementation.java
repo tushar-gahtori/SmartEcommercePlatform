@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,11 +25,11 @@ public class OrderServiceImplementation implements OrderService {
 
     @Transactional
     @Override
-    public OrderResponseDTO createOrder(OrderRequestDTO request) {
+    public OrderResponseDTO createOrder(OrderRequestDTO request,String userEmail) {
 
         // 1. Fetch User
-        User user = userRepository.findById(request.getUserId())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + request.getUserId()));
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + userEmail));
 
         Order order = new Order();
         order.setUser(user);
@@ -79,15 +80,13 @@ public class OrderServiceImplementation implements OrderService {
     }
 
     @Override
-    public List<OrderResponseDTO> getAllOrders() {
-        List<Order> orders = orderRepository.findAll();
-        List<OrderResponseDTO> responseList = new ArrayList<>();
+    public List<OrderResponseDTO> getMyOrders(String userEmail) {
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
-        for (Order order : orders) {
-            responseList.add(mapToResponse(order));
-        }
+        List<Order> userOrders = orderRepository.findByUser(user);
 
-        return responseList;
+        return userOrders.stream().map(this::mapToResponse).collect(Collectors.toList());
     }
 
     // 🧠 SMART MAPPER: Automatically calculates the total amount for ANY order passed to it!

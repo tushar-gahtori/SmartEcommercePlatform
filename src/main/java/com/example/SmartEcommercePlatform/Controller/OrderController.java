@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -23,18 +24,30 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<OrderResponseDTO>> createOrder(@Valid @RequestBody OrderRequestDTO dto) {
-        OrderResponseDTO response = orderService.createOrder(dto);
+    public ResponseEntity<ApiResponse<OrderResponseDTO>> createOrder(
+            @Valid @RequestBody OrderRequestDTO dto, Principal principal) {
+        OrderResponseDTO response = orderService.createOrder(dto, principal.getName());
         return ResponseEntity.ok(new ApiResponse<>("Order created successfully", response, 201));
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<OrderResponseDTO>>> getAllOrders() {
+    public ResponseEntity<ApiResponse<List<OrderResponseDTO>>> getAllOrders(Principal principal) {
 
-        List<OrderResponseDTO> orders = orderService.getAllOrders();
+        List<OrderResponseDTO> orders = orderService.getMyOrders(principal.getName());
 
         return ResponseEntity.ok(
                 new ApiResponse<List<OrderResponseDTO>>("Orders fetched successfully", orders,200)
+        );
+    }
+
+    @GetMapping("/my-orders")
+    public ResponseEntity<ApiResponse<List<OrderResponseDTO>>> getMyOrders(Principal principal) {
+
+        // principal.getName() automatically extracts the email from the JWT!
+        List<OrderResponseDTO> orders = orderService.getMyOrders(principal.getName());
+
+        return ResponseEntity.ok(
+                new ApiResponse<>("Order history fetched successfully", orders)
         );
     }
 }

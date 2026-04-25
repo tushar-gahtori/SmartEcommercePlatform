@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 public interface OrderService {
-    OrderResponseDTO createOrder(OrderRequestDTO request);
+    OrderResponseDTO createOrder(OrderRequestDTO request,String userEmail);
 
-    List<OrderResponseDTO> getAllOrders();
+    List<OrderResponseDTO> getMyOrders(String userEmail);
 }
