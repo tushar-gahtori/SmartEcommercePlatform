@@ -1,56 +1,54 @@
 package com.example.SmartEcommercePlatform.Security;
 
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.SecretKey;
 import java.security.Key;
 import java.util.Date;
-
-@Component //This tells Spring to manage this class so AuthService can find it!
+@Component
 public class JwtUtil {
 
-    private final String SECRET="5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437";
-    //token expiry to 1 hour
-    private final long EXPIRATION_TIME=1000*60*60;
+    @Value("${app.jwt.secret}")
+    private String secret;
 
-    private Key getSigningKey() {
-        return Keys.hmacShaKeyFor(SECRET.getBytes());
+    @Value("${app.jwt.expiration-ms}")
+    private long expirationMs;
+
+    private SecretKey getSigningKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(secret);
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 
     public String generateToken(String email) {
         return Jwts.builder()
-                .setSubject(email)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis()+EXPIRATION_TIME))
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .subject(email)              // 0.12 API — no "set" prefix
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + expirationMs))
+                .signWith(getSigningKey())
                 .compact();
     }
 
-    //Extract the Email (Subject) from the token
-    public String extractEmail(String token){
-        return Jwts.parserBuilder()
-                .setSigningKey(getSigningKey())
+    public String extractEmail(String token) {
+        return Jwts.parser()
+                .verifyWith(getSigningKey())
                 .build()
-                .parseClaimsJws(token)
-                .getBody().
-                getSubject();
+                .parseSignedClaims(token)
+                .getPayload()
+                .getSubject();
     }
 
-    //Extract the expiration date
-    public Date extractExpiration(String token){
-        return Jwts.parserBuilder()
-                .setSigningKey(getSigningKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
-                .getExpiration();
-    }
-
-    //Check if the token is valid and hasn't expired
-    public boolean validateToken(String token, String userEmail){
-        final String email=extractEmail(token);
-        return (email.equals(userEmail) && !extractExpiration(token).before(new Date()));
+    public boolean validateToken(String token, String userEmail) {
+        try {
+            String email = extractEmail(token);
+            return email.equals(userEmail);  // expiry is checked during parse — throws if expired
+        } catch (JwtException e) {
+            return false;
+        }
     }
 }

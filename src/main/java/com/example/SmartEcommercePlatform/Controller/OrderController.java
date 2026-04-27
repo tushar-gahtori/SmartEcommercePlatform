@@ -8,6 +8,7 @@ import com.example.SmartEcommercePlatform.Service.OrderService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +33,8 @@ public class OrderController {
     public ResponseEntity<ApiResponse<OrderResponseDTO>> createOrder(
             @Valid @RequestBody OrderRequestDTO dto, Principal principal) {
         OrderResponseDTO response = orderService.createOrder(dto, principal.getName());
-        return ResponseEntity.ok(new ApiResponse<>("Order created successfully", response, 201));
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new ApiResponse<>("Order created successfully", response, 201));
     }
 
     @Operation(

@@ -45,7 +45,6 @@ public class OrderServiceImplementation implements OrderService {
             );
         }
 
-        // 2. Loop through the CLEANED, consolidated cart
         for (Map.Entry<Long, Integer> entry : consolidatedCart.entrySet()) {
             Long productId = entry.getKey();
             int totalQuantityRequired = entry.getValue();
@@ -53,7 +52,6 @@ public class OrderServiceImplementation implements OrderService {
             Product product = productRepository.findById(productId)
                     .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + productId));
 
-            // 🔥 FIX 1: GRACEFUL STOCK VALIDATION
             if (product.getStock() < totalQuantityRequired) {
                 throw new BadRequestException("Insufficient stock for product: " + product.getName() + ". Only " + product.getStock() + " left in stock.");
             }
@@ -67,12 +65,12 @@ public class OrderServiceImplementation implements OrderService {
             orderItem.setOrder(order);
             orderItem.setProduct(product);
             orderItem.setQuantity(totalQuantityRequired); // Use the merged quantity!
-
+            orderItem.setPriceAtPurchase(product.getPrice());
             orderItems.add(orderItem);
         }
 
         // 5. Save Order and Items
-        order.setOrderItems(orderItems); // Note: Using setOrderItems() to match your implementation
+        order.setItems(orderItems); // Note: Using setOrderItems() to match your implementation
         Order savedOrder = orderRepository.save(order);
 
         // 6. Map to clean Response DTO
@@ -94,21 +92,19 @@ public class OrderServiceImplementation implements OrderService {
         List<OrderItemResponseDTO> itemDTOs = new ArrayList<>();
         double calculatedTotal = 0;
 
-        for (OrderItem item : order.getOrderItems()) { // Note: Using getOrderItems() to match your implementation
+        for (OrderItem item : order.getItems()) { // Note: Using getOrderItems() to match your implementation
             OrderItemResponseDTO dto = new OrderItemResponseDTO();
             dto.setProductId(item.getProduct().getId());
             dto.setProductName(item.getProduct().getName());
             dto.setQuantity(item.getQuantity());
-
-            // Add price mapping if your OrderItemResponseDTO supports it
-            // dto.setPrice(item.getProduct().getPrice());
+            dto.setPrice(item.getPriceAtPurchase());
 
             dto.setPrice(item.getProduct().getPrice());
 
             itemDTOs.add(dto);
 
             // Add to the running total
-            calculatedTotal += (item.getProduct().getPrice() * item.getQuantity());
+            calculatedTotal += item.getPriceAtPurchase() * item.getQuantity();
         }
 
         OrderResponseDTO response = new OrderResponseDTO();

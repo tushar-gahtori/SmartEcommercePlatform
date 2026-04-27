@@ -19,7 +19,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @NotBlank(message = "Product name cannot be empty")
     private String name;

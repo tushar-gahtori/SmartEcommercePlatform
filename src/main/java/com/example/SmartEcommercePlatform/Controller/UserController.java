@@ -25,19 +25,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @Operation(
-            summary = "Register a new user",
-            description = "Creates a new user account. All new accounts default to the 'USER' role. This endpoint is public."
-    )
-    @PostMapping
-    public ResponseEntity<ApiResponse<UserResponseDTO>> createUser(@Valid @RequestBody UserRequestDTO dto) {
-
-        UserResponseDTO user = userService.createUser(dto);
-
-        return ResponseEntity.ok(
-                new ApiResponse<>("User created successfully", user, 200)
-        );
-    }
 
     @Operation(summary = "Get user details", description = "Requires a valid JWT token.")
     @GetMapping
@@ -51,7 +38,7 @@ public class UserController {
     }
 
 
-    @CacheEvict(value = "userDetails", key = "#userEmail")
+    @CacheEvict(value = "userDetails", key = "#dto.Email")
     @Operation(summary = "Update user details", description = "Requires a valid JWT token.")
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<UserResponseDTO>> updateUser(

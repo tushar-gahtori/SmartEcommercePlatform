@@ -24,9 +24,6 @@ public class Order {
     @JoinColumn(name="user_id")
     private User user;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderItem> orderItems;
-
     // One order → many items
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     @JsonManagedReference

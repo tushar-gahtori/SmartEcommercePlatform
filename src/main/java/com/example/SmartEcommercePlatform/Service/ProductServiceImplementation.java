@@ -4,6 +4,7 @@ import com.example.SmartEcommercePlatform.Dto.PaginatedResponse;
 import com.example.SmartEcommercePlatform.Dto.ProductRequestDTO;
 import com.example.SmartEcommercePlatform.Dto.ProductResponseDTO;
 import com.example.SmartEcommercePlatform.Entity.Product;
+import com.example.SmartEcommercePlatform.Exception.ResourceNotFoundException;
 import com.example.SmartEcommercePlatform.Repository.ProductRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class ProductServiceImplementation implements ProductService {
     @Override
     public ProductResponseDTO getProductById(Long id) {
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
         return modelMapper.map(product, ProductResponseDTO.class);
     }
 
@@ -43,7 +44,7 @@ public class ProductServiceImplementation implements ProductService {
     @Override
     public ProductResponseDTO updateProduct(Long id, ProductRequestDTO dto) {
         Product existingProduct = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
 
         existingProduct.setName(dto.getName());
         existingProduct.setPrice(dto.getPrice());
@@ -58,7 +59,7 @@ public class ProductServiceImplementation implements ProductService {
     @Override
     public void deleteProduct(Long id) {
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
         productRepository.delete(product);
     }
 
