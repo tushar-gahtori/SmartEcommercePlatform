@@ -8,6 +8,7 @@ import com.example.SmartEcommercePlatform.Exception.ResourceNotFoundException;
 import com.example.SmartEcommercePlatform.Repository.UserRepository;
 import com.example.SmartEcommercePlatform.Security.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 public class AuthService {
 
     private final UserRepository userRepository;
+    @Autowired
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 

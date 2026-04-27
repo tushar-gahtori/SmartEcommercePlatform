@@ -3,6 +3,7 @@ package com.example.SmartEcommercePlatform.Service;
 import com.example.SmartEcommercePlatform.Entity.User;
 import com.example.SmartEcommercePlatform.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,6 +15,7 @@ public class CustomerUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
+    @Cacheable(value = "userDetails", key = "#p0")
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 

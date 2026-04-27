@@ -9,6 +9,7 @@ import com.example.SmartEcommercePlatform.Service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,6 +51,7 @@ public class UserController {
     }
 
 
+    @CacheEvict(value = "userDetails", key = "#userEmail")
     @Operation(summary = "Update user details", description = "Requires a valid JWT token.")
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<UserResponseDTO>> updateUser(
