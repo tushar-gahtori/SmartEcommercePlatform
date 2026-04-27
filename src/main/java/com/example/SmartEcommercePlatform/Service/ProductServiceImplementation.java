@@ -48,7 +48,7 @@ public class ProductServiceImplementation implements ProductService {
         existingProduct.setName(dto.getName());
         existingProduct.setPrice(dto.getPrice());
         // existingProduct.setDescription(dto.getDescription()); // Uncomment if your Entity has this
-        existingProduct.setStock(dto.getStock());
+        existingProduct.setStock(dto.getStockQuantity());
 
         Product savedProduct = productRepository.save(existingProduct);
         return modelMapper.map(savedProduct, ProductResponseDTO.class);
