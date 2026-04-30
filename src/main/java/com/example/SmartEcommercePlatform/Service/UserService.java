@@ -28,14 +28,11 @@ public class UserService {
     }
 
     public UserResponseDTO createUser(UserRequestDTO dto){
-        //Map the DTO to the Entity (this copies the plain-text password over)
+
         User user = modelMapper.map(dto, User.class);
-        //INTERCEPT AND HASH THE PASSWORD
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setRole(Role.USER);
-        //Save to database
         User savedUser = userRepository.save(user);
-        //Map back to Response DTO
         return modelMapper.map(savedUser, UserResponseDTO.class);
     }
 
@@ -59,7 +56,6 @@ public class UserService {
 
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
-
         User updatedUser = userRepository.save(user);
 
         return modelMapper.map(updatedUser, UserResponseDTO.class);

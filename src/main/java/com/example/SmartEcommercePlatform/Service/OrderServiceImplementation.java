@@ -87,7 +87,7 @@ public class OrderServiceImplementation implements OrderService {
         return userOrders.stream().map(this::mapToResponse).collect(Collectors.toList());
     }
 
-    // 🧠 SMART MAPPER: Automatically calculates the total amount for ANY order passed to it!
+
     private OrderResponseDTO mapToResponse(Order order) {
         List<OrderItemResponseDTO> itemDTOs = new ArrayList<>();
         double calculatedTotal = 0;
@@ -102,8 +102,6 @@ public class OrderServiceImplementation implements OrderService {
             dto.setPrice(item.getProduct().getPrice());
 
             itemDTOs.add(dto);
-
-            // Add to the running total
             calculatedTotal += item.getPriceAtPurchase() * item.getQuantity();
         }
 
@@ -112,7 +110,6 @@ public class OrderServiceImplementation implements OrderService {
         response.setUserId(order.getUser().getId());
         response.setItems(itemDTOs);
 
-        // Ensure your OrderResponseDTO has a setTotalAmount(double) method!
         response.setTotalAmount(calculatedTotal);
 
         return response;

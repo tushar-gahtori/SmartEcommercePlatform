@@ -10,6 +10,6 @@ import java.util.List;
 public class OrderRequestDTO {
 
     @NotEmpty(message = "Order must contain at least one item")
-    @Valid // This tells Spring to also validate the OrderItemRequestDTOs inside the list!
+    @Valid
     private List<OrderItemRequestDTO> items;
 }

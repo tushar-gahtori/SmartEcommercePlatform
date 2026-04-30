@@ -58,7 +58,6 @@ public class OrderController {
     @GetMapping("/my-orders")
     public ResponseEntity<ApiResponse<List<OrderResponseDTO>>> getMyOrders(Principal principal) {
 
-        // principal.getName() automatically extracts the email from the JWT!
         List<OrderResponseDTO> orders = orderService.getMyOrders(principal.getName());
 
         return ResponseEntity.ok(

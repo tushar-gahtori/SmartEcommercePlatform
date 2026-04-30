@@ -17,15 +17,12 @@ public class RedisConfig {
     @Bean
     public RedisCacheConfiguration cacheConfiguration() {
 
-        // 1. Create a custom JSON Object Mapper
         ObjectMapper objectMapper = new ObjectMapper();
 
-        // 2. 🔥 Teach Jackson exactly how to deserialize Spring Security objects!
         objectMapper.registerModules(SecurityJackson2Modules.getModules(this.getClass().getClassLoader()));
         objectMapper.activateDefaultTyping(objectMapper.getPolymorphicTypeValidator(),
                 ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
 
-        // 3. Pass our custom mapper into the Redis Serializer
         GenericJackson2JsonRedisSerializer serializer = new GenericJackson2JsonRedisSerializer(objectMapper);
 
         return RedisCacheConfiguration.defaultCacheConfig()
