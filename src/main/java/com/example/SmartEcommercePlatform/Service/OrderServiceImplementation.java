@@ -24,6 +24,9 @@ public class OrderServiceImplementation implements OrderService {
     private final OrderRepository orderRepository;
     private final CartRepository cartRepository;
 
+    // 🔥 THE FIX: Inject the Kafka Producer Service
+    private final KafkaProducerService kafkaProducerService;
+
     @Transactional
     @Override
     public OrderResponseDTO createOrder(OrderRequestDTO request, String userEmail) {
@@ -73,7 +76,18 @@ public class OrderServiceImplementation implements OrderService {
         order.setItems(orderItems);
         Order savedOrder = orderRepository.save(order);
 
-        return mapToResponse(savedOrder);
+        // 6. Map to Response DTO (to get the calculated total for Kafka)
+        OrderResponseDTO response = mapToResponse(savedOrder);
+
+        // 🔥 THE FIX: Trigger the Kafka Event
+        System.out.println("🚀 [ORDER SERVICE] Triggering Kafka Event for Order #" + response.getOrderId());
+        kafkaProducerService.sendOrderConfirmationEvent(
+                response.getOrderId(),
+                userEmail,
+                response.getTotalAmount()
+        );
+
+        return response;
     }
 
     @Transactional
@@ -102,8 +116,10 @@ public class OrderServiceImplementation implements OrderService {
         }
         orderRequest.setItems(orderItems);
 
+        // 2. Process the order (This will trigger the Kafka event inside createOrder)
         OrderResponseDTO completedOrder = this.createOrder(orderRequest, userEmail);
 
+        // 3. Clear the cart
         cart.getItems().clear();
         cart.setTotalCartPrice(0.0);
         cartRepository.save(cart);
