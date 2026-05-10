@@ -15,9 +15,7 @@ public class KafkaConsumerService {
 
     @KafkaListener(topics = "order-events", groupId = "notification-service-group")
     public void consumeOrderEvent(String message) {
-        // 🔥 Print this immediately so we know the message arrived!
         System.out.println("📥 RAW KAFKA MESSAGE RECEIVED: " + message);
-
         try {
             OrderEventDTO event = objectMapper.readValue(message, OrderEventDTO.class);
             emailService.sendOrderConfirmation(event.getUserEmail(), event.getOrderId(), event.getTotalAmount());

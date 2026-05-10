@@ -29,13 +29,12 @@ public class GlobalExceptionHandler {
 
     //Handle DB contraints errors
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<Map<String, String>> handleDatabaseException(DataIntegrityViolationException ex){
-
-        Map<String, String> error = new HashMap<>();
-
-        error.put("error", "Cannot delete product because it is linked with orders");
-
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    public ResponseEntity<Map<String, Object>> handleDataIntegrity(DataIntegrityViolationException ex) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("timestamp", LocalDateTime.now());
+        response.put("status", 409);
+        response.put("message", "Data conflict: the operation violates a database constraint");
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(response);  // 409, not 400
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

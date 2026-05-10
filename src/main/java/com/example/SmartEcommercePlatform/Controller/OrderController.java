@@ -2,7 +2,7 @@ package com.example.SmartEcommercePlatform.Controller;
 
 import com.example.SmartEcommercePlatform.Dto.OrderRequestDTO;
 import com.example.SmartEcommercePlatform.Dto.OrderResponseDTO;
-import com.example.SmartEcommercePlatform.Entity.Order;
+
 import com.example.SmartEcommercePlatform.Response.ApiResponse;
 import com.example.SmartEcommercePlatform.Service.OrderService;
 
@@ -47,20 +47,6 @@ public class OrderController {
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new ApiResponse<>("Checkout successful! Order placed.", response, 201));
-    }
-
-    @Operation(
-            summary = "Get All orders",
-            description = "Fetches all past orders."
-    )
-    @GetMapping
-    public ResponseEntity<ApiResponse<List<OrderResponseDTO>>> getAllOrders(Principal principal) {
-
-        List<OrderResponseDTO> orders = orderService.getMyOrders(principal.getName());
-
-        return ResponseEntity.ok(
-                new ApiResponse<List<OrderResponseDTO>>("Orders fetched successfully", orders,200)
-        );
     }
 
     @Operation(

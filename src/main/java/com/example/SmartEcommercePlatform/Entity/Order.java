@@ -19,12 +19,10 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Many orders → one user
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
 
-    // One order → many items
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<OrderItem> items = new ArrayList<>();

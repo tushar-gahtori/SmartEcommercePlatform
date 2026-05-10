@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
                 title = "Smart E-commerce API",
                 description = "Enterprise-grade backend for an e-commerce platform.",
                 version = "1.0",
-                contact = @Contact(name = "Lead Architect Nisa")
+                contact = @Contact(name = "Tushar Gahtori")
         ),
         security = {
                 @SecurityRequirement(name = "Bearer Authentication") // Applies this globally to all endpoints

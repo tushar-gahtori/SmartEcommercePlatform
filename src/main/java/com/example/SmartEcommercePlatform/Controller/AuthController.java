@@ -34,7 +34,6 @@ public class AuthController {
                 201));
     }
 
-
     @Operation(
             summary = "Authenticate user and generate token",
             description = "Validates user credentials and returns a Bearer JWT token valid for 1 hour."

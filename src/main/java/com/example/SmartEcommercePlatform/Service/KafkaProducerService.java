@@ -13,10 +13,9 @@ import java.util.UUID;
 public class KafkaProducerService {
 
     private final KafkaTemplate<String, Object> kafkaTemplate;
-
     private final ObjectMapper objectMapper;
-
     private static final String TOPIC = "order-events";
+
 
     public void sendOrderConfirmationEvent(Long orderId, String userEmail, double totalAmount) {
         try {
@@ -27,9 +26,6 @@ public class KafkaProducerService {
                     totalAmount,
                     "ORDER_PLACED"
             );
-
-            // 🔥 FIX: Hand the 'event' OBJECT directly to Kafka.
-            // Spring's JsonSerializer (configured in application.properties) will handle the JSON conversion.
             kafkaTemplate.send(TOPIC, event).whenComplete((result, ex) -> {
                 if (ex == null) {
                     System.out.println("🚀 PRODUCER SUCCESS: Sent Order #" + orderId + " to Kafka.");
@@ -37,7 +33,6 @@ public class KafkaProducerService {
                     System.err.println("🚀 PRODUCER ERROR: " + ex.getMessage());
                 }
             });
-
         } catch (Exception e) {
             System.err.println("❌ PRODUCER ERROR: " + e.getMessage());
         }

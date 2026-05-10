@@ -27,12 +27,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
         throws ServletException, IOException{
 
-        //Look for the "Authorization" header
         final String authHeader = request.getHeader("Authorization");
         String email=null;
         String jwt=null;
 
-        //Check if it starts with "Bearer " (The standard for JWTs)
         if(authHeader!=null && authHeader.startsWith("Bearer ")){
             jwt=authHeader.substring(7);//Remove "Bearer " to grab just the token
             try{
@@ -42,24 +40,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         }
 
-        //If we found an email, and the user isn't already logged in...
         if(email!=null && SecurityContextHolder.getContext().getAuthentication()==null){
 
             UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
-            //validate the token
             if(jwtUtil.validateToken(jwt,email)){
 
-                //user is authenticated
                 UsernamePasswordAuthenticationToken authToken=new UsernamePasswordAuthenticationToken(
-                        email,null,userDetails.getAuthorities() // Empty list means no specific roles (yet)
+                        email,null,userDetails.getAuthorities()
                 );
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }
 
-        //Pass the request to the next filter/controller
         filterChain.doFilter(request,response);
 
     }

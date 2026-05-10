@@ -7,7 +7,6 @@ import com.example.SmartEcommercePlatform.Response.ApiResponse;
 import com.example.SmartEcommercePlatform.Service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +16,6 @@ import io.swagger.v3.oas.annotations.Operation;
 @RequestMapping("/api/products")
 @RequiredArgsConstructor
 public class ProductController {
-
 
     private final ProductService productService;
 

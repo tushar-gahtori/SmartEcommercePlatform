@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 public class EmailService {
 
     private final JavaMailSender mailSender; // Real Spring Mail Tool
-
     @Value("${spring.mail.username}")
     private String fromEmail;
+
 
     public void sendOrderConfirmation(String toEmail, Long orderId, double totalAmount) {
         try {
@@ -22,7 +22,6 @@ public class EmailService {
             message.setTo(toEmail);
             message.setSubject("Order Confirmation #" + orderId);
             message.setText("Thank you! Your order of $" + totalAmount + " has been placed successfully.");
-
             mailSender.send(message);
             System.out.println("✅ REAL EMAIL SENT TO: " + toEmail);
         } catch (Exception e) {

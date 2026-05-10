@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
-import org.springframework.security.jackson2.SecurityJackson2Modules; // 🔥 Added import
+import org.springframework.security.jackson2.SecurityJackson2Modules;
 
 import java.time.Duration;
 

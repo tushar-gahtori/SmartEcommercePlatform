@@ -3,7 +3,6 @@ package com.example.SmartEcommercePlatform.Service;
 import com.example.SmartEcommercePlatform.Entity.User;
 import com.example.SmartEcommercePlatform.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,10 +16,8 @@ public class CustomerUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
         User user=userRepository.findByEmail(email)
                 .orElseThrow(()->new UsernameNotFoundException(("User not found with email: "+email)));
-
         return org.springframework.security.core.userdetails.User
                 .builder()
                 .username(user.getEmail())
@@ -28,6 +25,4 @@ public class CustomerUserDetailsService implements UserDetailsService {
                 .roles(user.getRole().name())
                 .build();
     }
-
-
 }

@@ -27,7 +27,7 @@ public class JwtUtil {
 
     public String generateToken(String email) {
         return Jwts.builder()
-                .subject(email)              // 0.12 API — no "set" prefix
+                .subject(email)
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + expirationMs))
                 .signWith(getSigningKey())
@@ -46,7 +46,7 @@ public class JwtUtil {
     public boolean validateToken(String token, String userEmail) {
         try {
             String email = extractEmail(token);
-            return email.equals(userEmail);  // expiry is checked during parse — throws if expired
+            return email.equals(userEmail);
         } catch (JwtException e) {
             return false;
         }
