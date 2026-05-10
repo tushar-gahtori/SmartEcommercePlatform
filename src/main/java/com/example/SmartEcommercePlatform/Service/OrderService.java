@@ -12,4 +12,6 @@ public interface OrderService {
     OrderResponseDTO createOrder(OrderRequestDTO request,String userEmail);
 
     List<OrderResponseDTO> getMyOrders(String userEmail);
+
+    OrderResponseDTO checkoutMyCart(String userEmail);
 }

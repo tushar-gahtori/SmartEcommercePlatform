@@ -22,11 +22,11 @@ public class OrderServiceImplementation implements OrderService {
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
     private final OrderRepository orderRepository;
+    private final CartRepository cartRepository;
 
     @Transactional
     @Override
-    public OrderResponseDTO createOrder(OrderRequestDTO request,String userEmail) {
-
+    public OrderResponseDTO createOrder(OrderRequestDTO request, String userEmail) {
         // 1. Fetch User
         User user = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + userEmail));
@@ -36,7 +36,7 @@ public class OrderServiceImplementation implements OrderService {
 
         List<OrderItem> orderItems = new ArrayList<>();
 
-        // 🔥 FIX 2: CART CONSOLIDATION (Merge duplicate products)
+        // 2. CART CONSOLIDATION (Merge duplicate products)
         Map<Long, Integer> consolidatedCart = new HashMap<>();
         for (OrderItemRequestDTO item : request.getItems()) {
             consolidatedCart.put(
@@ -64,17 +64,51 @@ public class OrderServiceImplementation implements OrderService {
             OrderItem orderItem = new OrderItem();
             orderItem.setOrder(order);
             orderItem.setProduct(product);
-            orderItem.setQuantity(totalQuantityRequired); // Use the merged quantity!
+            orderItem.setQuantity(totalQuantityRequired);
             orderItem.setPriceAtPurchase(product.getPrice());
             orderItems.add(orderItem);
         }
 
         // 5. Save Order and Items
-        order.setItems(orderItems); // Note: Using setOrderItems() to match your implementation
+        order.setItems(orderItems);
         Order savedOrder = orderRepository.save(order);
 
-        // 6. Map to clean Response DTO
         return mapToResponse(savedOrder);
+    }
+
+    @Transactional
+    @Override
+    public OrderResponseDTO checkoutMyCart(String userEmail) {
+
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        Cart cart = cartRepository.findByUser(user)
+                .orElseThrow(() -> new BadRequestException("No active cart found"));
+
+        if (cart.getItems().isEmpty()) {
+            throw new BadRequestException("Your cart is empty! Add products before checking out.");
+        }
+
+        // 1. Translate the CartItems into an OrderRequestDTO
+        OrderRequestDTO orderRequest = new OrderRequestDTO();
+        List<OrderItemRequestDTO> orderItems = new ArrayList<>();
+
+        for (CartItem cartItem : cart.getItems()) {
+            OrderItemRequestDTO dto = new OrderItemRequestDTO();
+            dto.setProductId(cartItem.getProduct().getId());
+            dto.setQuantity(cartItem.getQuantity());
+            orderItems.add(dto);
+        }
+        orderRequest.setItems(orderItems);
+
+        OrderResponseDTO completedOrder = this.createOrder(orderRequest, userEmail);
+
+        cart.getItems().clear();
+        cart.setTotalCartPrice(0.0);
+        cartRepository.save(cart);
+
+        return completedOrder;
     }
 
     @Override
@@ -83,25 +117,21 @@ public class OrderServiceImplementation implements OrderService {
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         List<Order> userOrders = orderRepository.findByUser(user);
-
         return userOrders.stream().map(this::mapToResponse).collect(Collectors.toList());
     }
-
 
     private OrderResponseDTO mapToResponse(Order order) {
         List<OrderItemResponseDTO> itemDTOs = new ArrayList<>();
         double calculatedTotal = 0;
 
-        for (OrderItem item : order.getItems()) { // Note: Using getOrderItems() to match your implementation
+        for (OrderItem item : order.getItems()) {
             OrderItemResponseDTO dto = new OrderItemResponseDTO();
             dto.setProductId(item.getProduct().getId());
             dto.setProductName(item.getProduct().getName());
             dto.setQuantity(item.getQuantity());
             dto.setPrice(item.getPriceAtPurchase());
-
-            dto.setPrice(item.getProduct().getPrice());
-
             itemDTOs.add(dto);
+
             calculatedTotal += item.getPriceAtPurchase() * item.getQuantity();
         }
 
@@ -109,7 +139,6 @@ public class OrderServiceImplementation implements OrderService {
         response.setOrderId(order.getId());
         response.setUserId(order.getUser().getId());
         response.setItems(itemDTOs);
-
         response.setTotalAmount(calculatedTotal);
 
         return response;

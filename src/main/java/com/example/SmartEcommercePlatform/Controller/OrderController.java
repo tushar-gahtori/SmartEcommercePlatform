@@ -38,6 +38,18 @@ public class OrderController {
     }
 
     @Operation(
+            summary = "Checkout Active Cart",
+            description = "Converts the user's active shopping cart into a final order, deducts stock, and empties the cart."
+    )
+    @PostMapping("/checkout")
+    public ResponseEntity<ApiResponse<OrderResponseDTO>> checkoutCart(Principal principal) {
+        OrderResponseDTO response = orderService.checkoutMyCart(principal.getName());
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new ApiResponse<>("Checkout successful! Order placed.", response, 201));
+    }
+
+    @Operation(
             summary = "Get All orders",
             description = "Fetches all past orders."
     )
