@@ -17,10 +17,9 @@ public class RateLimitingService {
     public Bucket resolveBucket(String ipAddress) {
         return cache.computeIfAbsent(ipAddress, this::newBucket);
     }
-
     private Bucket newBucket(String ipAddress) {
-        Refill refill=Refill.greedy(5,Duration.ofMinutes(1));
-        Bandwidth limit=Bandwidth.classic(5,refill);
+        Refill refill = Refill.greedy(10, Duration.ofMinutes(1));
+        Bandwidth limit = Bandwidth.classic(10, refill);
         return Bucket.builder()
                 .addLimit(limit)
                 .build();

@@ -7,7 +7,9 @@ import com.example.SmartEcommercePlatform.Response.ApiResponse;
 import com.example.SmartEcommercePlatform.Service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,13 +35,13 @@ public class ProductController {
 
     @Operation(summary = "Get all products", description = "Returns a paginated list of products.")
     @GetMapping
-    public ResponseEntity<ApiResponse<PaginatedResponse<ProductResponseDTO>>> getAllProducts(Pageable pageable) {
-
+    public ResponseEntity<ApiResponse<PaginatedResponse<ProductResponseDTO>>> getAllProducts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
         PaginatedResponse<ProductResponseDTO> products = productService.getAllProducts(pageable);
-
-        return ResponseEntity.ok(
-                new ApiResponse<>("Products fetched successfully", products, 200)
-        );
+        return ResponseEntity.ok(new ApiResponse<>("Products fetched successfully", products, 200));
     }
 
     @Operation(summary = "Get a single product by ID")

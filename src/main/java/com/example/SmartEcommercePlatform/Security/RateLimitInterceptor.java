@@ -18,23 +18,17 @@ public class RateLimitInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
         String ipAddress = request.getRemoteAddr();
-        Bucket tokenBucket = rateLimitingService.resolveBucket(ipAddress);
-        ConsumptionProbe probe = tokenBucket.tryConsumeAndReturnRemaining(1);
+        Bucket bucket = rateLimitingService.resolveBucket(ipAddress);
+        ConsumptionProbe probe = bucket.tryConsumeAndReturnRemaining(1);
 
         if (probe.isConsumed()) {
             response.addHeader("X-Rate-Limit-Remaining", String.valueOf(probe.getRemainingTokens()));
             return true;
         } else {
             long waitForRefill = probe.getNanosToWaitForRefill() / 1_000_000_000;
-            response.addHeader("X-Rate-Limit-Retry-After-Seconds", String.valueOf(waitForRefill));
-
-
             response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
-            response.setContentType("application/json");
-            response.getWriter().write("{\"status\": 429, \"error\": \"Too Many Requests\", \"message\": \"You have exhausted your API Request Quota. Please wait " + waitForRefill + " seconds.\"}");
-
+            response.getWriter().write("{\"error\": \"Too many requests. Retry after " + waitForRefill + " seconds.\"}");
             return false;
         }
     }

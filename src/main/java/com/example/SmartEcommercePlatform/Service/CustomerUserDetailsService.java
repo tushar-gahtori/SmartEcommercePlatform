@@ -16,13 +16,14 @@ public class CustomerUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user=userRepository.findByEmail(email)
-                .orElseThrow(()->new UsernameNotFoundException(("User not found with email: "+email)));
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
+
         return org.springframework.security.core.userdetails.User
                 .builder()
                 .username(user.getEmail())
                 .password(user.getPassword())
-                .roles(user.getRole().name())
+                .authorities("ROLE_" + user.getRole().name()) // Crucial for .hasRole() checks [cite: 219]
                 .build();
     }
 }

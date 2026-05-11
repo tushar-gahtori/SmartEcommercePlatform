@@ -7,9 +7,10 @@ import com.example.SmartEcommercePlatform.Entity.Product;
 import com.example.SmartEcommercePlatform.Exception.ResourceNotFoundException;
 import com.example.SmartEcommercePlatform.Repository.ProductRepository;
 import com.example.SmartEcommercePlatform.Service.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,54 +19,30 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImplementation implements ProductService {
-    @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    private ModelMapper modelMapper;
 
+    private final ProductRepository productRepository;
+    private final ModelMapper modelMapper;
 
-    @CacheEvict(value = "products", allEntries = true)
     @Override
+    @CacheEvict(value = "products", allEntries = true)
     public ProductResponseDTO createProduct(ProductRequestDTO dto) {
         Product product = modelMapper.map(dto, Product.class);
         Product savedProduct = productRepository.save(product);
         return modelMapper.map(savedProduct, ProductResponseDTO.class);
     }
 
-
     @Override
+    @Cacheable(value = "product_details", key = "#id")
     public ProductResponseDTO getProductById(Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
         return modelMapper.map(product, ProductResponseDTO.class);
     }
 
-
-    @CacheEvict(value = "products", allEntries = true)
     @Override
-    public ProductResponseDTO updateProduct(Long id, ProductRequestDTO dto) {
-        Product existingProduct = productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
-        existingProduct.setName(dto.getName());
-        existingProduct.setPrice(dto.getPrice());
-        existingProduct.setStock(dto.getStockQuantity());
-        Product savedProduct = productRepository.save(existingProduct);
-        return modelMapper.map(savedProduct, ProductResponseDTO.class);
-    }
-
-
-    @CacheEvict(value = "products", allEntries = true)
-    @Override
-    public void deleteProduct(Long id) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
-        productRepository.delete(product);
-    }
-
-
     @Cacheable(value = "products", key = "#pageable.pageNumber + '-' + #pageable.pageSize")
-    @Override
     public PaginatedResponse<ProductResponseDTO> getAllProducts(Pageable pageable) {
         Page<Product> productPage = productRepository.findAll(pageable);
         List<ProductResponseDTO> content = productPage.getContent().stream()
@@ -79,5 +56,23 @@ public class ProductServiceImplementation implements ProductService {
         response.setTotalPages(productPage.getTotalPages());
         response.setLast(productPage.isLast());
         return response;
+    }
+
+    @Override
+    @CacheEvict(value = {"products", "product_details"}, allEntries = true)
+    public ProductResponseDTO updateProduct(Long id, ProductRequestDTO dto) {
+        Product existingProduct = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+        existingProduct.setName(dto.getName());
+        existingProduct.setPrice(dto.getPrice());
+        existingProduct.setStock(dto.getStockQuantity());
+        return modelMapper.map(productRepository.save(existingProduct), ProductResponseDTO.class);
+    }
+
+    @Override
+    @CacheEvict(value = {"products", "product_details"}, allEntries = true)
+    public void deleteProduct(Long id) {
+        if(!productRepository.existsById(id)) throw new ResourceNotFoundException("Product not found");
+        productRepository.deleteById(id);
     }
 }

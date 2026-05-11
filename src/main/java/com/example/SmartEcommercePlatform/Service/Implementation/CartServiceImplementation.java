@@ -92,7 +92,12 @@ public class CartServiceImplementation implements CartService {
         User user = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         Cart cart = cartRepository.findByUser(user)
-                .orElseThrow(() -> new ResourceNotFoundException("Cart is empty"));
+                .orElseThrow(() -> new ResourceNotFoundException("Cart not found for user"));
+
+        boolean exists = cart.getItems().stream().anyMatch(item -> item.getProduct().getId().equals(productId));
+        if (!exists) {
+            throw new ResourceNotFoundException("Product not found in your cart");
+        }
         cart.getItems().removeIf(item -> item.getProduct().getId().equals(productId));
         recalculateCartTotal(cart);
         Cart savedCart = cartRepository.save(cart);

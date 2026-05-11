@@ -1,0 +1,2304 @@
+====================
+Directory Tree (selected)
+====================
+
+SmartEcommercePlatform-master/
+└── SmartEcommercePlatform-master/
+    ├── .mvn/
+    │   └── wrapper/
+    │       └── maven-wrapper.properties
+    ├── src/
+    │   ├── main/
+    │   │   ├── java/
+    │   │   │   └── com/
+    │   │   │       └── example/
+    │   │   │           └── SmartEcommercePlatform/
+    │   │   │               ├── Config/
+    │   │   │               │   ├── AppConfig.java
+    │   │   │               │   ├── OpenApiConfig.java
+    │   │   │               │   └── RedisConfig.java
+    │   │   │               ├── Controller/
+    │   │   │               │   ├── AuthController.java
+    │   │   │               │   ├── OrderController.java
+    │   │   │               │   ├── ProductController.java
+    │   │   │               │   └── UserController.java
+    │   │   │               ├── Dto/
+    │   │   │               │   ├── AuthRequestDTO.java
+    │   │   │               │   ├── AuthResponseDTO.java
+    │   │   │               │   ├── OrderItemRequestDTO.java
+    │   │   │               │   ├── OrderItemResponseDTO.java
+    │   │   │               │   ├── OrderRequestDTO.java
+    │   │   │               │   ├── OrderResponseDTO.java
+    │   │   │               │   ├── PaginatedResponse.java
+    │   │   │               │   ├── ProductRequestDTO.java
+    │   │   │               │   ├── ProductResponseDTO.java
+    │   │   │               │   ├── UserRequestDTO.java
+    │   │   │               │   ├── UserResponseDTO.java
+    │   │   │               │   └── UserUpdateDTO.java
+    │   │   │               ├── Entity/
+    │   │   │               │   ├── Order.java
+    │   │   │               │   ├── OrderItem.java
+    │   │   │               │   ├── Product.java
+    │   │   │               │   ├── Role.java
+    │   │   │               │   └── User.java
+    │   │   │               ├── Exception/
+    │   │   │               │   ├── BadRequestException.java
+    │   │   │               │   ├── GlobalExceptionHandler.java
+    │   │   │               │   └── ResourceNotFoundException.java
+    │   │   │               ├── Repository/
+    │   │   │               │   ├── OrderItemRepository.java
+    │   │   │               │   ├── OrderRepository.java
+    │   │   │               │   ├── ProductRepository.java
+    │   │   │               │   └── UserRepository.java
+    │   │   │               ├── Response/
+    │   │   │               │   └── ApiResponse.java
+    │   │   │               ├── Security/
+    │   │   │               │   ├── JwtAuthenticationFilter.java
+    │   │   │               │   ├── JwtUtil.java
+    │   │   │               │   └── SecurityConfig.java
+    │   │   │               ├── Service/
+    │   │   │               │   ├── AuthService.java
+    │   │   │               │   ├── CustomerUserDetailsService.java
+    │   │   │               │   ├── OrderService.java
+    │   │   │               │   ├── OrderServiceImplementation.java
+    │   │   │               │   ├── ProductService.java
+    │   │   │               │   ├── ProductServiceImplementation.java
+    │   │   │               │   └── UserService.java
+    │   │   │               └── SmartEcommercePlatformApplication.java
+    │   │   └── resources/
+    │   │       └── application.properties
+    │   └── test/
+    │       └── java/
+    │           └── com/
+    │               └── example/
+    │                   └── SmartEcommercePlatform/
+    │                       ├── Service/
+    │                       │   └── UserServiceTest.java
+    │                       └── SmartEcommercePlatformApplicationTests.java
+    ├── .gitattributes
+    ├── .gitignore
+    ├── mvnw.cmd
+    └── pom.xml
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/.gitattributes
+--------------------
+
+/mvnw text eol=lf
+*.cmd text eol=crlf
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/.gitignore
+--------------------
+
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/.mvn/wrapper/maven-wrapper.properties
+--------------------
+
+wrapperVersion=3.3.4
+distributionType=only-script
+distributionUrl=https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.9.14/apache-maven-3.9.14-bin.zip
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/mvnw.cmd
+--------------------
+
+<# : batch portion
+@REM ----------------------------------------------------------------------------
+@REM Licensed to the Apache Software Foundation (ASF) under one
+@REM or more contributor license agreements.  See the NOTICE file
+@REM distributed with this work for additional information
+@REM regarding copyright ownership.  The ASF licenses this file
+@REM to you under the Apache License, Version 2.0 (the
+@REM "License"); you may not use this file except in compliance
+@REM with the License.  You may obtain a copy of the License at
+@REM
+@REM    http://www.apache.org/licenses/LICENSE-2.0
+@REM
+@REM Unless required by applicable law or agreed to in writing,
+@REM software distributed under the License is distributed on an
+@REM "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+@REM KIND, either express or implied.  See the License for the
+@REM specific language governing permissions and limitations
+@REM under the License.
+@REM ----------------------------------------------------------------------------
+
+@REM ----------------------------------------------------------------------------
+@REM Apache Maven Wrapper startup batch script, version 3.3.4
+@REM
+@REM Optional ENV vars
+@REM   MVNW_REPOURL - repo url base for downloading maven distribution
+@REM   MVNW_USERNAME/MVNW_PASSWORD - user and password for downloading maven
+@REM   MVNW_VERBOSE - true: enable verbose log; others: silence the output
+@REM ----------------------------------------------------------------------------
+
+@IF "%__MVNW_ARG0_NAME__%"=="" (SET __MVNW_ARG0_NAME__=%~nx0)
+@SET __MVNW_CMD__=
+@SET __MVNW_ERROR__=
+@SET __MVNW_PSMODULEP_SAVE=%PSModulePath%
+@SET PSModulePath=
+@FOR /F "usebackq tokens=1* delims==" %%A IN (`powershell -noprofile "& {$scriptDir='%~dp0'; $script='%__MVNW_ARG0_NAME__%'; icm -ScriptBlock ([Scriptblock]::Create((Get-Content -Raw '%~f0'))) -NoNewScope}"`) DO @(
+  IF "%%A"=="MVN_CMD" (set __MVNW_CMD__=%%B) ELSE IF "%%B"=="" (echo %%A) ELSE (echo %%A=%%B)
+)
+@SET PSModulePath=%__MVNW_PSMODULEP_SAVE%
+@SET __MVNW_PSMODULEP_SAVE=
+@SET __MVNW_ARG0_NAME__=
+@SET MVNW_USERNAME=
+@SET MVNW_PASSWORD=
+@IF NOT "%__MVNW_CMD__%"=="" ("%__MVNW_CMD__%" %*)
+@echo Cannot start maven from wrapper >&2 && exit /b 1
+@GOTO :EOF
+: end batch / begin powershell #>
+
+$ErrorActionPreference = "Stop"
+if ($env:MVNW_VERBOSE -eq "true") {
+  $VerbosePreference = "Continue"
+}
+
+# calculate distributionUrl, requires .mvn/wrapper/maven-wrapper.properties
+$distributionUrl = (Get-Content -Raw "$scriptDir/.mvn/wrapper/maven-wrapper.properties" | ConvertFrom-StringData).distributionUrl
+if (!$distributionUrl) {
+  Write-Error "cannot read distributionUrl property in $scriptDir/.mvn/wrapper/maven-wrapper.properties"
+}
+
+switch -wildcard -casesensitive ( $($distributionUrl -replace '^.*/','') ) {
+  "maven-mvnd-*" {
+    $USE_MVND = $true
+    $distributionUrl = $distributionUrl -replace '-bin\.[^.]*$',"-windows-amd64.zip"
+    $MVN_CMD = "mvnd.cmd"
+    break
+  }
+  default {
+    $USE_MVND = $false
+    $MVN_CMD = $script -replace '^mvnw','mvn'
+    break
+  }
+}
+
+# apply MVNW_REPOURL and calculate MAVEN_HOME
+# maven home pattern: ~/.m2/wrapper/dists/{apache-maven-<version>,maven-mvnd-<version>-<platform>}/<hash>
+if ($env:MVNW_REPOURL) {
+  $MVNW_REPO_PATTERN = if ($USE_MVND -eq $False) { "/org/apache/maven/" } else { "/maven/mvnd/" }
+  $distributionUrl = "$env:MVNW_REPOURL$MVNW_REPO_PATTERN$($distributionUrl -replace "^.*$MVNW_REPO_PATTERN",'')"
+}
+$distributionUrlName = $distributionUrl -replace '^.*/',''
+$distributionUrlNameMain = $distributionUrlName -replace '\.[^.]*$','' -replace '-bin$',''
+
+$MAVEN_M2_PATH = "$HOME/.m2"
+if ($env:MAVEN_USER_HOME) {
+  $MAVEN_M2_PATH = "$env:MAVEN_USER_HOME"
+}
+
+if (-not (Test-Path -Path $MAVEN_M2_PATH)) {
+    New-Item -Path $MAVEN_M2_PATH -ItemType Directory | Out-Null
+}
+
+$MAVEN_WRAPPER_DISTS = $null
+if ((Get-Item $MAVEN_M2_PATH).Target[0] -eq $null) {
+  $MAVEN_WRAPPER_DISTS = "$MAVEN_M2_PATH/wrapper/dists"
+} else {
+  $MAVEN_WRAPPER_DISTS = (Get-Item $MAVEN_M2_PATH).Target[0] + "/wrapper/dists"
+}
+
+$MAVEN_HOME_PARENT = "$MAVEN_WRAPPER_DISTS/$distributionUrlNameMain"
+$MAVEN_HOME_NAME = ([System.Security.Cryptography.SHA256]::Create().ComputeHash([byte[]][char[]]$distributionUrl) | ForEach-Object {$_.ToString("x2")}) -join ''
+$MAVEN_HOME = "$MAVEN_HOME_PARENT/$MAVEN_HOME_NAME"
+
+if (Test-Path -Path "$MAVEN_HOME" -PathType Container) {
+  Write-Verbose "found existing MAVEN_HOME at $MAVEN_HOME"
+  Write-Output "MVN_CMD=$MAVEN_HOME/bin/$MVN_CMD"
+  exit $?
+}
+
+if (! $distributionUrlNameMain -or ($distributionUrlName -eq $distributionUrlNameMain)) {
+  Write-Error "distributionUrl is not valid, must end with *-bin.zip, but found $distributionUrl"
+}
+
+# prepare tmp dir
+$TMP_DOWNLOAD_DIR_HOLDER = New-TemporaryFile
+$TMP_DOWNLOAD_DIR = New-Item -Itemtype Directory -Path "$TMP_DOWNLOAD_DIR_HOLDER.dir"
+$TMP_DOWNLOAD_DIR_HOLDER.Delete() | Out-Null
+trap {
+  if ($TMP_DOWNLOAD_DIR.Exists) {
+    try { Remove-Item $TMP_DOWNLOAD_DIR -Recurse -Force | Out-Null }
+    catch { Write-Warning "Cannot remove $TMP_DOWNLOAD_DIR" }
+  }
+}
+
+New-Item -Itemtype Directory -Path "$MAVEN_HOME_PARENT" -Force | Out-Null
+
+# Download and Install Apache Maven
+Write-Verbose "Couldn't find MAVEN_HOME, downloading and installing it ..."
+Write-Verbose "Downloading from: $distributionUrl"
+Write-Verbose "Downloading to: $TMP_DOWNLOAD_DIR/$distributionUrlName"
+
+$webclient = New-Object System.Net.WebClient
+if ($env:MVNW_USERNAME -and $env:MVNW_PASSWORD) {
+  $webclient.Credentials = New-Object System.Net.NetworkCredential($env:MVNW_USERNAME, $env:MVNW_PASSWORD)
+}
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+$webclient.DownloadFile($distributionUrl, "$TMP_DOWNLOAD_DIR/$distributionUrlName") | Out-Null
+
+# If specified, validate the SHA-256 sum of the Maven distribution zip file
+$distributionSha256Sum = (Get-Content -Raw "$scriptDir/.mvn/wrapper/maven-wrapper.properties" | ConvertFrom-StringData).distributionSha256Sum
+if ($distributionSha256Sum) {
+  if ($USE_MVND) {
+    Write-Error "Checksum validation is not supported for maven-mvnd. `nPlease disable validation by removing 'distributionSha256Sum' from your maven-wrapper.properties."
+  }
+  Import-Module $PSHOME\Modules\Microsoft.PowerShell.Utility -Function Get-FileHash
+  if ((Get-FileHash "$TMP_DOWNLOAD_DIR/$distributionUrlName" -Algorithm SHA256).Hash.ToLower() -ne $distributionSha256Sum) {
+    Write-Error "Error: Failed to validate Maven distribution SHA-256, your Maven distribution might be compromised. If you updated your Maven version, you need to update the specified distributionSha256Sum property."
+  }
+}
+
+# unzip and move
+Expand-Archive "$TMP_DOWNLOAD_DIR/$distributionUrlName" -DestinationPath "$TMP_DOWNLOAD_DIR" | Out-Null
+
+# Find the actual extracted directory name (handles snapshots where filename != directory name)
+$actualDistributionDir = ""
+
+# First try the expected directory name (for regular distributions)
+$expectedPath = Join-Path "$TMP_DOWNLOAD_DIR" "$distributionUrlNameMain"
+$expectedMvnPath = Join-Path "$expectedPath" "bin/$MVN_CMD"
+if ((Test-Path -Path $expectedPath -PathType Container) -and (Test-Path -Path $expectedMvnPath -PathType Leaf)) {
+  $actualDistributionDir = $distributionUrlNameMain
+}
+
+# If not found, search for any directory with the Maven executable (for snapshots)
+if (!$actualDistributionDir) {
+  Get-ChildItem -Path "$TMP_DOWNLOAD_DIR" -Directory | ForEach-Object {
+    $testPath = Join-Path $_.FullName "bin/$MVN_CMD"
+    if (Test-Path -Path $testPath -PathType Leaf) {
+      $actualDistributionDir = $_.Name
+    }
+  }
+}
+
+if (!$actualDistributionDir) {
+  Write-Error "Could not find Maven distribution directory in extracted archive"
+}
+
+Write-Verbose "Found extracted Maven distribution directory: $actualDistributionDir"
+Rename-Item -Path "$TMP_DOWNLOAD_DIR/$actualDistributionDir" -NewName $MAVEN_HOME_NAME | Out-Null
+try {
+  Move-Item -Path "$TMP_DOWNLOAD_DIR/$MAVEN_HOME_NAME" -Destination $MAVEN_HOME_PARENT | Out-Null
+} catch {
+  if (! (Test-Path -Path "$MAVEN_HOME" -PathType Container)) {
+    Write-Error "fail to move MAVEN_HOME"
+  }
+} finally {
+  try { Remove-Item $TMP_DOWNLOAD_DIR -Recurse -Force | Out-Null }
+  catch { Write-Warning "Cannot remove $TMP_DOWNLOAD_DIR" }
+}
+
+Write-Output "MVN_CMD=$MAVEN_HOME/bin/$MVN_CMD"
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/pom.xml
+--------------------
+
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.5.14-SNAPSHOT</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.example</groupId>
+	<artifactId>SmartEcommercePlatform</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name/>
+	<description/>
+	<url/>
+	<licenses>
+		<license/>
+	</licenses>
+	<developers>
+		<developer/>
+	</developers>
+	<scm>
+		<connection/>
+		<developerConnection/>
+		<tag/>
+		<url/>
+	</scm>
+	<properties>
+		<java.version>25</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.11.5</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.11.5</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.8.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>0.11.5</version>
+            <scope>runtime</scope>
+        </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+		<dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>default-compile</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+						<configuration>
+							<annotationProcessorPaths>
+								<path>
+									<groupId>org.projectlombok</groupId>
+									<artifactId>lombok</artifactId>
+								</path>
+							</annotationProcessorPaths>
+						</configuration>
+					</execution>
+					<execution>
+						<id>default-testCompile</id>
+						<phase>test-compile</phase>
+						<goals>
+							<goal>testCompile</goal>
+						</goals>
+						<configuration>
+							<annotationProcessorPaths>
+								<path>
+									<groupId>org.projectlombok</groupId>
+									<artifactId>lombok</artifactId>
+								</path>
+							</annotationProcessorPaths>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<repositories>
+		<repository>
+			<id>spring-snapshots</id>
+			<name>Spring Snapshots</name>
+			<url>https://repo.spring.io/snapshot</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>spring-snapshots</id>
+			<name>Spring Snapshots</name>
+			<url>https://repo.spring.io/snapshot</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</pluginRepository>
+	</pluginRepositories>
+
+</project>
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Config/AppConfig.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Config;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
+}
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Config/OpenApiConfig.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Config;
+
+
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.info.Contact;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@OpenAPIDefinition(
+        info = @Info(
+                title = "Smart E-commerce API",
+                description = "Enterprise-grade backend for an e-commerce platform.",
+                version = "1.0",
+                contact = @Contact(name = "Lead Architect Nisa")
+        ),
+        security = {
+                @SecurityRequirement(name = "Bearer Authentication") // Applies this globally to all endpoints
+        }
+)
+@SecurityScheme(
+        name = "Bearer Authentication",
+        description = "Enter your JWT token here to authenticate your API calls.",
+        scheme = "bearer",
+        type = SecuritySchemeType.HTTP,
+        bearerFormat = "JWT",
+        in = SecuritySchemeIn.HEADER
+)
+public class OpenApiConfig {
+}
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Config/RedisConfig.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Config;
+
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializationContext;
+import org.springframework.security.jackson2.SecurityJackson2Modules; // 🔥 Added import
+
+import java.time.Duration;
+
+@Configuration
+public class RedisConfig {
+
+    @Bean
+    public RedisCacheConfiguration cacheConfiguration() {
+
+        // 1. Create a custom JSON Object Mapper
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        // 2. 🔥 Teach Jackson exactly how to deserialize Spring Security objects!
+        objectMapper.registerModules(SecurityJackson2Modules.getModules(this.getClass().getClassLoader()));
+        objectMapper.activateDefaultTyping(objectMapper.getPolymorphicTypeValidator(),
+                ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
+
+        // 3. Pass our custom mapper into the Redis Serializer
+        GenericJackson2JsonRedisSerializer serializer = new GenericJackson2JsonRedisSerializer(objectMapper);
+
+        return RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofMinutes(60))
+                .serializeValuesWith(
+                        RedisSerializationContext.SerializationPair.fromSerializer(serializer)
+                );
+    }
+}
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Controller/AuthController.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Controller;
+
+import com.example.SmartEcommercePlatform.Dto.AuthRequestDTO;
+import com.example.SmartEcommercePlatform.Dto.AuthResponseDTO;
+import com.example.SmartEcommercePlatform.Response.ApiResponse;
+import com.example.SmartEcommercePlatform.Service.AuthService;
+import io.swagger.v3.oas.annotations.Operation;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/auth")
+@RequiredArgsConstructor
+public class AuthController {
+
+    private final AuthService authService;
+
+    @Operation(
+            summary = "Authenticate user and generate token",
+            description = "Validates user credentials and returns a Bearer JWT token valid for 1 hour."
+    )
+    @PostMapping("/login")
+    public ResponseEntity<ApiResponse<AuthResponseDTO>> login(@RequestBody AuthRequestDTO request){
+        AuthResponseDTO response=authService.login(request);
+        return ResponseEntity.ok(new ApiResponse<>("Login successful",response));
+    }
+}
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Controller/OrderController.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Controller;
+
+import com.example.SmartEcommercePlatform.Dto.OrderRequestDTO;
+import com.example.SmartEcommercePlatform.Dto.OrderResponseDTO;
+import com.example.SmartEcommercePlatform.Entity.Order;
+import com.example.SmartEcommercePlatform.Response.ApiResponse;
+import com.example.SmartEcommercePlatform.Service.OrderService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/orders")
+public class OrderController {
+
+    private final OrderService orderService;
+
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
+    }
+
+    @Operation(
+            summary = "Place a new order",
+            description = "Creates an order for the currently authenticated user. Deducts stock quantities from products."
+    )
+    @PostMapping
+    public ResponseEntity<ApiResponse<OrderResponseDTO>> createOrder(
+            @Valid @RequestBody OrderRequestDTO dto, Principal principal) {
+        OrderResponseDTO response = orderService.createOrder(dto, principal.getName());
+        return ResponseEntity.ok(new ApiResponse<>("Order created successfully", response, 201));
+    }
+
+    @Operation(
+            summary = "Get All orders",
+            description = "Fetches all past orders."
+    )
+    @GetMapping
+    public ResponseEntity<ApiResponse<List<OrderResponseDTO>>> getAllOrders(Principal principal) {
+
+        List<OrderResponseDTO> orders = orderService.getMyOrders(principal.getName());
+
+        return ResponseEntity.ok(
+                new ApiResponse<List<OrderResponseDTO>>("Orders fetched successfully", orders,200)
+        );
+    }
+
+    @Operation(
+            summary = "Get order history for current user",
+            description = "Fetches all past orders belonging exclusively to the authenticated user. Uses the JWT to guarantee data isolation."
+    )
+    @GetMapping("/my-orders")
+    public ResponseEntity<ApiResponse<List<OrderResponseDTO>>> getMyOrders(Principal principal) {
+
+        // principal.getName() automatically extracts the email from the JWT!
+        List<OrderResponseDTO> orders = orderService.getMyOrders(principal.getName());
+
+        return ResponseEntity.ok(
+                new ApiResponse<>("Order history fetched successfully", orders)
+        );
+    }
+}
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Controller/ProductController.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Controller;
+
+import com.example.SmartEcommercePlatform.Dto.PaginatedResponse;
+import com.example.SmartEcommercePlatform.Dto.ProductRequestDTO;
+import com.example.SmartEcommercePlatform.Dto.ProductResponseDTO;
+import com.example.SmartEcommercePlatform.Response.ApiResponse;
+import com.example.SmartEcommercePlatform.Service.ProductService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.Operation;
+
+@RestController
+@RequestMapping("/api/products")
+public class ProductController {
+
+    @Autowired
+    private ProductService productService;
+
+    @Operation(summary = "Create a new product", description = "Requires ADMIN role.")
+    @PostMapping
+    public ResponseEntity<ApiResponse<ProductResponseDTO>> createProduct(
+            @Valid @RequestBody ProductRequestDTO requestDto) {
+
+        ProductResponseDTO savedProduct = productService.createProduct(requestDto);
+
+        return ResponseEntity.status(org.springframework.http.HttpStatus.CREATED).body(
+                new ApiResponse<>("Product created successfully", savedProduct, 201)
+        );
+    }
+
+    @Operation(summary = "Get all products", description = "Returns a paginated list of products.")
+    @GetMapping
+    public ResponseEntity<ApiResponse<PaginatedResponse<ProductResponseDTO>>> getAllProducts(Pageable pageable) {
+
+        PaginatedResponse<ProductResponseDTO> products = productService.getAllProducts(pageable);
+
+        return ResponseEntity.ok(
+                new ApiResponse<>("Products fetched successfully", products, 200)
+        );
+    }
+
+    @Operation(summary = "Get a single product by ID")
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse<ProductResponseDTO>> getProductById(@PathVariable Long id) {
+        ProductResponseDTO dto = productService.getProductById(id);
+        return ResponseEntity.ok(
+                new ApiResponse<>("Product fetched successfully", dto, 200)
+        );
+    }
+
+    @Operation(summary = "Update an existing product", description = "Requires ADMIN role.")
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse<ProductResponseDTO>> updateProduct(
+            @PathVariable Long id,
+            @Valid @RequestBody ProductRequestDTO requestDto) {
+
+        ProductResponseDTO updatedProduct = productService.updateProduct(id, requestDto);
+
+        return ResponseEntity.ok(
+                new ApiResponse<>("Product updated successfully", updatedProduct, 200)
+        );
+    }
+
+    @Operation(summary = "Delete a product", description = "Requires ADMIN role.")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<String>> deleteProduct(@PathVariable Long id) {
+        productService.deleteProduct(id);
+        return ResponseEntity.ok(
+                new ApiResponse<>("Product deleted successfully", null, 200)
+        );
+    }
+}
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Controller/UserController.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Controller;
+
+import com.example.SmartEcommercePlatform.Dto.UserRequestDTO;
+import com.example.SmartEcommercePlatform.Dto.UserResponseDTO;
+import com.example.SmartEcommercePlatform.Dto.UserUpdateDTO;
+import com.example.SmartEcommercePlatform.Entity.User;
+import com.example.SmartEcommercePlatform.Response.ApiResponse;
+import com.example.SmartEcommercePlatform.Service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/users")
+public class UserController {
+
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @Operation(
+            summary = "Register a new user",
+            description = "Creates a new user account. All new accounts default to the 'USER' role. This endpoint is public."
+    )
+    @PostMapping
+    public ResponseEntity<ApiResponse<UserResponseDTO>> createUser(@Valid @RequestBody UserRequestDTO dto) {
+
+        UserResponseDTO user = userService.createUser(dto);
+
+        return ResponseEntity.ok(
+                new ApiResponse<>("User created successfully", user, 200)
+        );
+    }
+
+    @Operation(summary = "Get user details", description = "Requires a valid JWT token.")
+    @GetMapping
+    public ResponseEntity<ApiResponse<List<UserResponseDTO>>> getUsers() {
+
+        List<UserResponseDTO> users = userService.getAllUsers();
+
+        return ResponseEntity.ok(
+                new ApiResponse<>("Users fetched successfully", users, 200)
+        );
+    }
+
+
+    @CacheEvict(value = "userDetails", key = "#userEmail")
+    @Operation(summary = "Update user details", description = "Requires a valid JWT token.")
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse<UserResponseDTO>> updateUser(
+            @PathVariable Long id,
+            @Valid @RequestBody UserUpdateDTO dto) {
+
+        UserResponseDTO updatedUser = userService.updateUser(id, dto);
+
+        return ResponseEntity.ok(
+                new ApiResponse<>("User updated successfully", updatedUser, 200)
+        );
+    }
+
+    @Operation(summary = "Get user details by ID", description = "Requires a valid JWT token.")
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse<UserResponseDTO>> getUserById(@PathVariable Long id) {
+
+        UserResponseDTO user = userService.getUserById(id);
+
+        return ResponseEntity.ok(
+                new ApiResponse<>("User fetched successfully", user, 200)
+        );
+    }
+
+    @Operation(summary = "Delete a user account", description = "Requires ADMIN role.")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<String>> deleteUser(@PathVariable Long id) {
+
+        userService.deleteUser(id);
+
+        return ResponseEntity.ok(
+                new ApiResponse<>("User deleted successfully", null, 200)
+        );
+    }
+}
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Dto/AuthRequestDTO.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Dto;
+
+import lombok.Data;
+
+@Data
+public class AuthRequestDTO {
+    private String email;
+    private String password;
+}
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Dto/AuthResponseDTO.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class AuthResponseDTO {
+    private String token;
+}
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Dto/OrderItemRequestDTO.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Dto;
+
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import lombok.Data;
+
+@Data
+public class OrderItemRequestDTO {
+
+    @NotNull(message = "Product ID is required")
+    private Long productId;
+
+    @Min(value = 1, message = "Quantity must be at least 1")
+    private int quantity;
+}
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Dto/OrderItemResponseDTO.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class OrderItemResponseDTO {
+    private Long productId;
+    private String productName;
+    private int quantity;
+    private double price;
+}
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Dto/OrderRequestDTO.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Dto;
+
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import lombok.Data;
+import java.util.List;
+
+@Data
+public class OrderRequestDTO {
+
+    @NotEmpty(message = "Order must contain at least one item")
+    @Valid // This tells Spring to also validate the OrderItemRequestDTOs inside the list!
+    private List<OrderItemRequestDTO> items;
+}
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Dto/OrderResponseDTO.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import java.util.List;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class OrderResponseDTO {
+    private Long orderId;
+    private Long userId;
+    private List<OrderItemResponseDTO> items;
+    private double totalAmount;
+}
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Dto/PaginatedResponse.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Dto;
+
+import lombok.Data;
+import java.io.Serializable;
+import java.util.List;
+
+@Data
+public class PaginatedResponse<T> implements Serializable {
+    private List<T> content;
+    private int pageNumber;
+    private int pageSize;
+    private long totalElements;
+    private int totalPages;
+    private boolean isLast;
+}
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Dto/ProductRequestDTO.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Dto;
+
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.Data;
+
+@Data
+public class ProductRequestDTO {
+
+    @NotBlank(message = "Product name is required")
+    private String name;
+
+    @NotBlank(message = "Description is required")
+    private String description;
+
+    @NotNull(message = "Price is required")
+    @Min(value = 1, message = "Price must be greater than zero")
+    private Double price;
+
+    @NotNull(message = "Stock is required")
+    @Min(value = 0, message = "Stock cannot be negative")
+    private Integer stockQuantity;
+}
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Dto/ProductResponseDTO.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import java.io.Serializable;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ProductResponseDTO implements Serializable {
+    private Long id;
+    private String name;
+    private String description;
+    private double price;
+    private int stock;
+}
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Dto/UserRequestDTO.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Dto;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserRequestDTO {
+
+    @NotBlank(message="Name is required")
+    @Size(min=3, max=20,message = "Name must be between 3 and 20 characters")
+    private String name;
+
+    @Email(message = "Invalid email format")
+    @NotBlank(message = "Email cannot be empty")
+    private String email;
+
+    @Size(min=3, message="Password must be at least 4 characters")
+    @NotBlank(message="Password cannot be blank")
+    private String password;
+}
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Dto/UserResponseDTO.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserResponseDTO {
+    private Long id;
+    private String name;
+    private String email;
+}
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Dto/UserUpdateDTO.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Dto;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserUpdateDTO {
+
+    @NotBlank(message="Name is required")
+    private String name;
+
+    @NotBlank(message="Email is required")
+    @Email(message = "Invalid email format")
+    private String email;
+}
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Entity/Order.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Entity;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name="orders")
+public class Order {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    // Many orders → one user
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderItem> orderItems;
+
+    // One order → many items
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<OrderItem> items = new ArrayList<>();
+}
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Entity/OrderItem.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Entity;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class OrderItem {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    // Many items → one order
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    private int quantity;
+}
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Entity/Product.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Entity;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name="products")
+public class Product {
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private long id;
+
+    @NotBlank(message = "Product name cannot be empty")
+    private String name;
+
+    @NotNull(message = "Price is required")
+    @Min(value = 1, message = "Price must be greater than 0")
+    private double price;
+
+    @Min(value = 0, message = "Stock cannot be negative")
+    private int stock;
+
+}
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Entity/Role.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Entity;
+
+public enum Role {
+    USER,
+    ADMIN
+}
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Entity/User.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Entity;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name = "users")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+    private String email;
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+}
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Exception/BadRequestException.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Exception;
+
+public class BadRequestException  extends RuntimeException{
+    public BadRequestException(String message){
+        super(message);
+    }
+}
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Exception/GlobalExceptionHandler.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Exception;
+
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    //Handle Validation Errors
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleResourceNotFound(ResourceNotFoundException ex){
+
+        Map<String, Object> response = new HashMap<>();
+
+        response.put("timestamp", LocalDateTime.now());
+        response.put("status", 404);
+        response.put("message", ex.getMessage());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+
+    //Handle DB contraints errors
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<Map<String, String>> handleDatabaseException(DataIntegrityViolationException ex){
+
+        Map<String, String> error = new HashMap<>();
+
+        error.put("error", "Cannot delete product because it is linked with orders");
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex){
+
+        Map<String, String> errors = new HashMap<>();
+
+        ex.getBindingResult().getFieldErrors().forEach(error ->
+                errors.put(error.getField(), error.getDefaultMessage())
+        );
+
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
+
+    //Handle Generic Errors
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Map<String, Object>> handleException(Exception ex){
+
+        Map<String, Object> response = new HashMap<>();
+
+        response.put("timestamp", LocalDateTime.now());
+        response.put("status", 500);
+        response.put("message", "Something went wrong");
+        response.put("details", ex.getMessage());
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+    }
+
+    // Handle Bad Requests (like Out of Stock)
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<Map<String, Object>> handleBadRequest(BadRequestException ex) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("timestamp", LocalDateTime.now());
+        response.put("status", 400);
+        response.put("message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    }
+}
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Exception/ResourceNotFoundException.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Exception;
+
+
+public class ResourceNotFoundException extends RuntimeException{
+    public ResourceNotFoundException(String message) {
+        super(message);
+    }
+}
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Repository/OrderItemRepository.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Repository;
+
+import com.example.SmartEcommercePlatform.Entity.OrderItem;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
+}
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Repository/OrderRepository.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Repository;
+
+import com.example.SmartEcommercePlatform.Entity.Order;
+import com.example.SmartEcommercePlatform.Entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface OrderRepository extends JpaRepository<Order, Long> {
+
+    List<Order> findByUser(User user);
+
+}
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Repository/ProductRepository.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Repository;
+
+import com.example.SmartEcommercePlatform.Entity.Product;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ProductRepository extends JpaRepository<Product,Long> {
+
+}
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Repository/UserRepository.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Repository;
+
+import com.example.SmartEcommercePlatform.Entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Optional;
+
+public interface UserRepository extends JpaRepository<User,Long> {
+
+    Optional<User> findByEmail(String email);
+}
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Response/ApiResponse.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Response;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ApiResponse<T> {
+
+    private String message;
+    private T data;
+    private int status;
+
+    public ApiResponse(String message, T data) {
+        this.message = message;
+        this.data = data;
+        this.status = 200;
+    }
+}
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Security/JwtAuthenticationFilter.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Security;
+
+import com.example.SmartEcommercePlatform.Service.CustomerUserDetailsService;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+@Component
+@RequiredArgsConstructor
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
+    private final JwtUtil jwtUtil;
+    private final CustomerUserDetailsService userDetailsService;
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+        throws ServletException, IOException{
+
+        //Look for the "Authorization" header
+        final String authHeader = request.getHeader("Authorization");
+        String email=null;
+        String jwt=null;
+
+        //Check if it starts with "Bearer " (The standard for JWTs)
+        if(authHeader!=null && authHeader.startsWith("Bearer ")){
+            jwt=authHeader.substring(7);//Remove "Bearer " to grab just the token
+            try{
+                email=jwtUtil.extractEmail(jwt);
+            }catch(Exception e){
+                System.out.println("Invalid Token");
+            }
+        }
+
+        //If we found an email, and the user isn't already logged in...
+        if(email!=null && SecurityContextHolder.getContext().getAuthentication()==null){
+
+            UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+
+            //validate the token
+            if(jwtUtil.validateToken(jwt,email)){
+
+                //user is authenticated
+                UsernamePasswordAuthenticationToken authToken=new UsernamePasswordAuthenticationToken(
+                        email,null,userDetails.getAuthorities() // Empty list means no specific roles (yet)
+                );
+                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authToken);
+            }
+        }
+
+        //Pass the request to the next filter/controller
+        filterChain.doFilter(request,response);
+
+    }
+}
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Security/JwtUtil.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Security;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+import org.springframework.stereotype.Component;
+
+import java.security.Key;
+import java.util.Date;
+
+@Component //This tells Spring to manage this class so AuthService can find it!
+public class JwtUtil {
+
+    private final String SECRET="5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437";
+    //token expiry to 1 hour
+    private final long EXPIRATION_TIME=1000*60*60;
+
+    private Key getSigningKey() {
+        return Keys.hmacShaKeyFor(SECRET.getBytes());
+    }
+
+    public String generateToken(String email) {
+        return Jwts.builder()
+                .setSubject(email)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis()+EXPIRATION_TIME))
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .compact();
+    }
+
+    //Extract the Email (Subject) from the token
+    public String extractEmail(String token){
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody().
+                getSubject();
+    }
+
+    //Extract the expiration date
+    public Date extractExpiration(String token){
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getExpiration();
+    }
+
+    //Check if the token is valid and hasn't expired
+    public boolean validateToken(String token, String userEmail){
+        final String email=extractEmail(token);
+        return (email.equals(userEmail) && !extractExpiration(token).before(new Date()));
+    }
+}
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Security/SecurityConfig.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Security;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+@Configuration
+@EnableWebSecurity
+@RequiredArgsConstructor
+public class SecurityConfig {
+
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth->auth
+                        .requestMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/actuator/**"
+                        ).permitAll()
+                        .requestMatchers("/api/auth/**", "/api/users/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/products/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/products/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/products/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/products/**").authenticated()
+                        .requestMatchers("/api/orders/**").hasAnyRole("USER", "ADMIN")
+                        .anyRequest().authenticated()
+                )
+                .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        return http.build();
+    }
+}
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Service/AuthService.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Service;
+
+import com.example.SmartEcommercePlatform.Dto.AuthRequestDTO;
+import com.example.SmartEcommercePlatform.Dto.AuthResponseDTO;
+import com.example.SmartEcommercePlatform.Entity.User;
+import com.example.SmartEcommercePlatform.Exception.BadRequestException;
+import com.example.SmartEcommercePlatform.Exception.ResourceNotFoundException;
+import com.example.SmartEcommercePlatform.Repository.UserRepository;
+import com.example.SmartEcommercePlatform.Security.JwtUtil;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class AuthService {
+
+    private final UserRepository userRepository;
+    @Autowired
+    private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
+
+    public AuthResponseDTO login(AuthRequestDTO request) {
+
+        //Find the user by email
+        User user=userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + request.getEmail()));
+
+        if(!passwordEncoder.matches(request.getPassword(),user.getPassword())) {
+            throw new BadRequestException("Invalid password");
+        }
+
+        String token= jwtUtil.generateToken(user.getEmail());
+
+        return new AuthResponseDTO(token);
+    }
+}
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Service/CustomerUserDetailsService.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Service;
+
+import com.example.SmartEcommercePlatform.Entity.User;
+import com.example.SmartEcommercePlatform.Repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class CustomerUserDetailsService implements UserDetailsService {
+
+    private final UserRepository userRepository;
+
+    @Cacheable(value = "userDetails", key = "#p0")
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
+        User user=userRepository.findByEmail(email)
+                .orElseThrow(()->new UsernameNotFoundException(("User not found with email: "+email)));
+
+        return org.springframework.security.core.userdetails.User
+                .builder()
+                .username(user.getEmail())
+                .password(user.getPassword())
+                .roles(user.getRole().name())
+                .build();
+    }
+
+
+}
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Service/OrderService.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Service;
+
+import com.example.SmartEcommercePlatform.Dto.OrderRequestDTO;
+import com.example.SmartEcommercePlatform.Dto.OrderResponseDTO;
+import com.example.SmartEcommercePlatform.Entity.*;
+import com.example.SmartEcommercePlatform.Repository.*;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public interface OrderService {
+    OrderResponseDTO createOrder(OrderRequestDTO request,String userEmail);
+
+    List<OrderResponseDTO> getMyOrders(String userEmail);
+}
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Service/OrderServiceImplementation.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Service;
+
+import com.example.SmartEcommercePlatform.Dto.*;
+import com.example.SmartEcommercePlatform.Entity.*;
+import com.example.SmartEcommercePlatform.Exception.BadRequestException;
+import com.example.SmartEcommercePlatform.Exception.ResourceNotFoundException;
+import com.example.SmartEcommercePlatform.Repository.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+public class OrderServiceImplementation implements OrderService {
+
+    private final UserRepository userRepository;
+    private final ProductRepository productRepository;
+    private final OrderRepository orderRepository;
+
+    @Transactional
+    @Override
+    public OrderResponseDTO createOrder(OrderRequestDTO request,String userEmail) {
+
+        // 1. Fetch User
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + userEmail));
+
+        Order order = new Order();
+        order.setUser(user);
+
+        List<OrderItem> orderItems = new ArrayList<>();
+
+        // 🔥 FIX 2: CART CONSOLIDATION (Merge duplicate products)
+        Map<Long, Integer> consolidatedCart = new HashMap<>();
+        for (OrderItemRequestDTO item : request.getItems()) {
+            consolidatedCart.put(
+                    item.getProductId(),
+                    consolidatedCart.getOrDefault(item.getProductId(), 0) + item.getQuantity()
+            );
+        }
+
+        // 2. Loop through the CLEANED, consolidated cart
+        for (Map.Entry<Long, Integer> entry : consolidatedCart.entrySet()) {
+            Long productId = entry.getKey();
+            int totalQuantityRequired = entry.getValue();
+
+            Product product = productRepository.findById(productId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + productId));
+
+            // 🔥 FIX 1: GRACEFUL STOCK VALIDATION
+            if (product.getStock() < totalQuantityRequired) {
+                throw new BadRequestException("Insufficient stock for product: " + product.getName() + ". Only " + product.getStock() + " left in stock.");
+            }
+
+            // 3. Deduct stock and save product
+            product.setStock(product.getStock() - totalQuantityRequired);
+            productRepository.save(product);
+
+            // 4. Create Bridge Entity
+            OrderItem orderItem = new OrderItem();
+            orderItem.setOrder(order);
+            orderItem.setProduct(product);
+            orderItem.setQuantity(totalQuantityRequired); // Use the merged quantity!
+
+            orderItems.add(orderItem);
+        }
+
+        // 5. Save Order and Items
+        order.setOrderItems(orderItems); // Note: Using setOrderItems() to match your implementation
+        Order savedOrder = orderRepository.save(order);
+
+        // 6. Map to clean Response DTO
+        return mapToResponse(savedOrder);
+    }
+
+    @Override
+    public List<OrderResponseDTO> getMyOrders(String userEmail) {
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        List<Order> userOrders = orderRepository.findByUser(user);
+
+        return userOrders.stream().map(this::mapToResponse).collect(Collectors.toList());
+    }
+
+    // 🧠 SMART MAPPER: Automatically calculates the total amount for ANY order passed to it!
+    private OrderResponseDTO mapToResponse(Order order) {
+        List<OrderItemResponseDTO> itemDTOs = new ArrayList<>();
+        double calculatedTotal = 0;
+
+        for (OrderItem item : order.getOrderItems()) { // Note: Using getOrderItems() to match your implementation
+            OrderItemResponseDTO dto = new OrderItemResponseDTO();
+            dto.setProductId(item.getProduct().getId());
+            dto.setProductName(item.getProduct().getName());
+            dto.setQuantity(item.getQuantity());
+
+            // Add price mapping if your OrderItemResponseDTO supports it
+            // dto.setPrice(item.getProduct().getPrice());
+
+            dto.setPrice(item.getProduct().getPrice());
+
+            itemDTOs.add(dto);
+
+            // Add to the running total
+            calculatedTotal += (item.getProduct().getPrice() * item.getQuantity());
+        }
+
+        OrderResponseDTO response = new OrderResponseDTO();
+        response.setOrderId(order.getId());
+        response.setUserId(order.getUser().getId());
+        response.setItems(itemDTOs);
+
+        // Ensure your OrderResponseDTO has a setTotalAmount(double) method!
+        response.setTotalAmount(calculatedTotal);
+
+        return response;
+    }
+}
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Service/ProductService.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Service;
+
+import com.example.SmartEcommercePlatform.Dto.PaginatedResponse;
+import com.example.SmartEcommercePlatform.Dto.ProductRequestDTO;
+import com.example.SmartEcommercePlatform.Dto.ProductResponseDTO;
+import org.springframework.data.domain.Pageable;
+
+public interface ProductService {
+
+    ProductResponseDTO createProduct(ProductRequestDTO dto);
+
+    PaginatedResponse<ProductResponseDTO> getAllProducts(Pageable pageable);
+
+    ProductResponseDTO getProductById(Long id);
+
+    ProductResponseDTO updateProduct(Long id, ProductRequestDTO updatedProduct);
+
+    void deleteProduct(Long id);
+}
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Service/ProductServiceImplementation.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Service;
+
+import com.example.SmartEcommercePlatform.Dto.PaginatedResponse;
+import com.example.SmartEcommercePlatform.Dto.ProductRequestDTO;
+import com.example.SmartEcommercePlatform.Dto.ProductResponseDTO;
+import com.example.SmartEcommercePlatform.Entity.Product;
+import com.example.SmartEcommercePlatform.Repository.ProductRepository;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class ProductServiceImplementation implements ProductService {
+
+    @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @CacheEvict(value = "products", allEntries = true)
+    @Override
+    public ProductResponseDTO createProduct(ProductRequestDTO dto) {
+        Product product = modelMapper.map(dto, Product.class);
+        Product savedProduct = productRepository.save(product);
+        return modelMapper.map(savedProduct, ProductResponseDTO.class);
+    }
+
+    @Override
+    public ProductResponseDTO getProductById(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+        return modelMapper.map(product, ProductResponseDTO.class);
+    }
+
+    @CacheEvict(value = "products", allEntries = true)
+    @Override
+    public ProductResponseDTO updateProduct(Long id, ProductRequestDTO dto) {
+        Product existingProduct = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+
+        existingProduct.setName(dto.getName());
+        existingProduct.setPrice(dto.getPrice());
+        // existingProduct.setDescription(dto.getDescription()); // Uncomment if your Entity has this
+        existingProduct.setStock(dto.getStockQuantity());
+
+        Product savedProduct = productRepository.save(existingProduct);
+        return modelMapper.map(savedProduct, ProductResponseDTO.class);
+    }
+
+    @CacheEvict(value = "products", allEntries = true)
+    @Override
+    public void deleteProduct(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+        productRepository.delete(product);
+    }
+
+    @Cacheable(value = "products", key = "#pageable.pageNumber + '-' + #pageable.pageSize")
+    @Override
+    public PaginatedResponse<ProductResponseDTO> getAllProducts(Pageable pageable) {
+        Page<Product> productPage = productRepository.findAll(pageable);
+
+        List<ProductResponseDTO> content = productPage.getContent().stream()
+                .map(product -> modelMapper.map(product, ProductResponseDTO.class))
+                .toList();
+
+        PaginatedResponse<ProductResponseDTO> response = new PaginatedResponse<>();
+        response.setContent(content);
+        response.setPageNumber(productPage.getNumber());
+        response.setPageSize(productPage.getSize());
+        response.setTotalElements(productPage.getTotalElements());
+        response.setTotalPages(productPage.getTotalPages());
+        response.setLast(productPage.isLast());
+
+        return response;
+    }
+}
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/Service/UserService.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Service;
+
+import com.example.SmartEcommercePlatform.Dto.*;
+import com.example.SmartEcommercePlatform.Entity.Role;
+import com.example.SmartEcommercePlatform.Entity.User;
+import com.example.SmartEcommercePlatform.Exception.ResourceNotFoundException;
+import com.example.SmartEcommercePlatform.Repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+
+public class UserService {
+
+    private final UserRepository userRepository;
+    private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
+
+    public UserService(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.modelMapper = modelMapper;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    public UserResponseDTO createUser(UserRequestDTO dto){
+        //Map the DTO to the Entity (this copies the plain-text password over)
+        User user = modelMapper.map(dto, User.class);
+        //INTERCEPT AND HASH THE PASSWORD
+        user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        user.setRole(Role.USER);
+        //Save to database
+        User savedUser = userRepository.save(user);
+        //Map back to Response DTO
+        return modelMapper.map(savedUser, UserResponseDTO.class);
+    }
+
+    public List<UserResponseDTO> getAllUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(user -> modelMapper.map(user, UserResponseDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    public UserResponseDTO getUserById(Long id){
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+
+        return modelMapper.map(user, UserResponseDTO.class);
+    }
+
+    public UserResponseDTO updateUser(Long id, UserUpdateDTO dto){
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+
+        user.setName(dto.getName());
+        user.setEmail(dto.getEmail());
+
+        User updatedUser = userRepository.save(user);
+
+        return modelMapper.map(updatedUser, UserResponseDTO.class);
+    }
+
+    public void deleteUser(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+
+        userRepository.delete(user);
+    }
+}
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/java/com/example/SmartEcommercePlatform/SmartEcommercePlatformApplication.java
+--------------------
+
+package com.example.SmartEcommercePlatform;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
+
+@EnableCaching
+@SpringBootApplication
+public class SmartEcommercePlatformApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SmartEcommercePlatformApplication.class, args);
+	}
+
+}
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/main/resources/application.properties
+--------------------
+
+# Server Configuration
+server.port=8080
+
+# Database Configuration
+spring.datasource.url=jdbc:mysql://localhost:3306/smart_commerce
+spring.datasource.username=root
+spring.datasource.password=1234
+
+# JPA / Hibernate Configuration
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+
+# Jackson Configuration
+spring.jackson.serialization.indent-output=true
+
+management.endpoints.web.exposure.include=health,info,metrics
+
+#Redis Cache
+spring.data.redis.host=${REDIS_HOST}
+spring.data.redis.port=${REDIS_PORT}
+spring.data.redis.password=${REDIS_PASSWORD}
+
+# Reveal Cache Hits and Misses
+logging.level.org.springframework.cache=TRACE
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/test/java/com/example/SmartEcommercePlatform/Service/UserServiceTest.java
+--------------------
+
+package com.example.SmartEcommercePlatform.Service;
+
+import com.example.SmartEcommercePlatform.Dto.UserResponseDTO;
+import com.example.SmartEcommercePlatform.Entity.User;
+import com.example.SmartEcommercePlatform.Exception.ResourceNotFoundException;
+import com.example.SmartEcommercePlatform.Repository.UserRepository;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.verification.VerificationMode;
+import org.modelmapper.ModelMapper;
+
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.*;
+
+@ExtendWith(MockitoExtension.class)
+public class UserServiceTest {
+
+    @Mock
+    private UserRepository userRepository;  //Fake DB
+
+    @Mock
+    private ModelMapper modelMapper;    //Fake Mapper
+
+    @InjectMocks
+    private UserService userService;    //Real Service, injecting the fakes above
+
+    @Test
+    void getUserById_WhenUserExists_ShouldReturnUserResponseDTO() {
+        // 1. ARRANGE (Set up the fake data and rules)
+        Long userId = 1L;
+        User mockUser=new User();
+        mockUser.setId(userId);
+        mockUser.setName("Test User");
+
+        UserResponseDTO mockResponseDTO=new UserResponseDTO();
+        mockResponseDTO.setId(userId);
+        mockResponseDTO.setName("Test User");
+
+        // Telling the fake repository what to return when findById is called
+        when(userRepository.findById(userId)).thenReturn(Optional.of(mockUser));
+
+        // Telling the fake mapper what to return when map is called
+        when(modelMapper.map(mockUser, UserResponseDTO.class)).thenReturn(mockResponseDTO);
+
+        // 2. ACT (Call the actual method we are testing)
+        UserResponseDTO result = userService.getUserById(userId);
+
+        // 3. ASSERT (Verify the results)
+        assertNotNull(result);
+        assertEquals("Test User",result.getName());
+        assertEquals(userId,result.getId());
+
+        // Verifying the repository was actually called exactly once
+        verify(userRepository, times(1)).findById(userId);
+    }
+
+    @Test
+    void getUserById_WhenUserDoesNotExist_ShouldThrowException() {
+        // 1. ARRANGE
+        Long userId = 99L;
+
+        // Tell the fake repository to return empty (simulating user not found)
+        when(userRepository.findById(userId)).thenReturn(Optional.empty());
+
+        // 2 & 3. ACT & ASSERT
+        // Verify that calling the method throws your custom exception
+        ResourceNotFoundException exception = assertThrows(
+                ResourceNotFoundException.class,
+                () -> userService.getUserById(userId)
+        );
+
+        assertEquals("User not found with id: 99", exception.getMessage());
+
+        // Verify the mapper was NEVER called, because it should fail before reaching it
+        verify(modelMapper, never()).map(any(), any());
+    }
+}
+
+
+--------------------
+File: /SmartEcommercePlatform-master/SmartEcommercePlatform-master/src/test/java/com/example/SmartEcommercePlatform/SmartEcommercePlatformApplicationTests.java
+--------------------
+
+package com.example.SmartEcommercePlatform;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class SmartEcommercePlatformApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
+
+
