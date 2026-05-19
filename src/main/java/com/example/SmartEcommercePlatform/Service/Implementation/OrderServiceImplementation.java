@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronization;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
-
+import com.example.SmartEcommercePlatform.Service.Decorator.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -124,7 +124,8 @@ public class OrderServiceImplementation implements OrderService {
 
     private OrderResponseDTO mapToResponse(Order order) {
         List<OrderItemResponseDTO> itemDTOs = new ArrayList<>();
-        double calculatedTotal = 0;
+        double rawSubtotal = 0;
+
         for (OrderItem item : order.getItems()) {
             OrderItemResponseDTO dto = new OrderItemResponseDTO();
             dto.setProductId(item.getProduct().getId());
@@ -132,13 +133,25 @@ public class OrderServiceImplementation implements OrderService {
             dto.setQuantity(item.getQuantity());
             dto.setPrice(item.getPriceAtPurchase());
             itemDTOs.add(dto);
-            calculatedTotal += item.getPriceAtPurchase() * item.getQuantity();
+            rawSubtotal += item.getPriceAtPurchase() * item.getQuantity();
         }
+
+        PriceCalculator calculator = new BasePriceCalculator();
+
+        if ("ADMIN".equals(order.getUser().getRole().name())) {
+            calculator = new VipDiscountDecorator(calculator);
+        }
+        calculator = new TaxDecorator(calculator);
+
+        double finalAmount = calculator.calculate(rawSubtotal);
+
+        log.info("Pricing Breakdown for Order #{}: {}", order.getId(), calculator.getBreakdown());
+
         OrderResponseDTO response = new OrderResponseDTO();
         response.setOrderId(order.getId());
         response.setUserId(order.getUser().getId());
         response.setItems(itemDTOs);
-        response.setTotalAmount(calculatedTotal);
+        response.setTotalAmount(Math.round(finalAmount * 100.0) / 100.0); // Round to 2 decimal places
         return response;
     }
 }
