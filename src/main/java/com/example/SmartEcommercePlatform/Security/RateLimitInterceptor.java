@@ -1,8 +1,6 @@
 package com.example.SmartEcommercePlatform.Security;
 
 import com.example.SmartEcommercePlatform.Service.RateLimitingService;
-import io.github.bucket4j.Bucket;
-import io.github.bucket4j.ConsumptionProbe;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -18,17 +16,16 @@ public class RateLimitInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String ipAddress = request.getRemoteAddr();
-        Bucket bucket = rateLimitingService.resolveBucket(ipAddress);
-        ConsumptionProbe probe = bucket.tryConsumeAndReturnRemaining(1);
 
-        if (probe.isConsumed()) {
-            response.addHeader("X-Rate-Limit-Remaining", String.valueOf(probe.getRemainingTokens()));
+        String ipAddress = request.getRemoteAddr();
+        boolean isAllowed = rateLimitingService.isRequestAllowed(ipAddress);
+
+        if (isAllowed) {
             return true;
         } else {
-            long waitForRefill = probe.getNanosToWaitForRefill() / 1_000_000_000;
             response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
-            response.getWriter().write("{\"error\": \"Too many requests. Retry after " + waitForRefill + " seconds.\"}");
+            response.setContentType("application/json");
+            response.getWriter().write("{\"status\": 429, \"error\": \"Too Many Requests\", \"message\": \"You have exhausted your API Request Quota (10 per minute). Please wait.\"}");
             return false;
         }
     }
