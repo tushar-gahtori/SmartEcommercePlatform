@@ -57,6 +57,30 @@ services:
       - kafka
     env_file:
       - .env
+  # 5. Prometheus (Data Scraper)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: smart-ecommerce-prometheus
+    restart: always
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - app
+
+  # 6. Grafana (Visual Dashboard)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: smart-ecommerce-grafana
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=password # The login password for Grafana
+    depends_on:
+      - prometheus
 
 volumes:
   mysql_data:
+
